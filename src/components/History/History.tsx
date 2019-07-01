@@ -9,10 +9,10 @@ interface Props {
 const ViewedClass: React.FC<Props> = (props: Props) => {
     const { course, clickHistory } = props;
     //@ts-ignore
-    const { dept, num } = course!.split(' ');
+    const [ dept, num ] = course.split(" ");
     return (
         <tr>
-            <td onClick={() => clickHistory(dept, num) }>
+            <td onClick={(e) => clickHistory(dept, num) }>
                 { course }
             </td>
         </tr>
