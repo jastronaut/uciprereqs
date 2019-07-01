@@ -33,11 +33,10 @@ const ClassInfo: React.FC<Props> = (props: Props) => {
                 (title === null || title === '') ? null : (
                     <>
                     <CourseBadge>
-                        <h1 className={`title is-2`}>{dept}</h1>
+                        <h1 className={`title is-2`}>{dept} </h1>
                         <h1 className={`title is-2`}>{num}</h1>
                     </CourseBadge>
                     <h3 className={`subtitle is-3 has-text-gray`}>{title}</h3>
-                    <br /><br />
                     <article className={`message desc`}>
                         <div className={`message-body desc`}>{desc}</div>
                     </article>
