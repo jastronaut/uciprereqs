@@ -2,6 +2,7 @@ import React from 'react';
 import  ClassInfo from './components/ClassInfo';
 import History from './components/History';
 import './App.css';
+// import console = require('console');
 
 interface Props {}
 interface State {
@@ -27,9 +28,14 @@ class App extends React.Component<Props, State> {
 			courseInfo: null,
 			history: [],
 		}
+
+		// this.onClickHistory = this.onClickHistory.bind(this);
+		this.selectDept = this.selectDept.bind(this);
+		this.selectClass = this.selectClass.bind(this);
 	}
 
 	selectDept(dept: string) {
+		console.log(dept);
 		this.setState({curDept: dept, curClass: ''});
 		this.getClassList(dept);
 	}
@@ -43,16 +49,22 @@ class App extends React.Component<Props, State> {
 	}
 
 	getClassList(theDept: string) {
-		const xhr = new XMLHttpRequest();
-		xhr.responseType = 'json';
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				this.setState({classList: xhr.response.courses});
-			}
-		}
+		// const xhr = new XMLHttpRequest();
+		// xhr.responseType = 'json';
+		// xhr.onreadystatechange = () => {
+		// 	if (xhr.readyState === 4 && xhr.status === 200) {
+		// 		this.setState({classList: xhr.response.courses});
+		// 	}
+		// }
 
-		xhr.open('GET', `http://apps.jasdelgado.com/uciprereqs/ajax/show_courses/?selectedDept=${theDept}`, true);
-		xhr.send();
+		// xhr.open('GET', `http://apps.jasdelgado.com/uciprereqs/ajax/show_courses/?selectedDept=${theDept}`, true);
+		// xhr.send();
+		fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_courses/?selectedDept=${theDept}`)
+			.then((response) => {
+				//@ts-ignore
+				console.log(response.json());
+				// this.setState({classList: (response.json()).courses})
+			});
 	}
 
 	getCourseInfo(theClass: string) {
@@ -86,10 +98,10 @@ class App extends React.Component<Props, State> {
 			if (history.length > NUM_HISTORY)
 				history.pop();
 		} else {
-			// finish this
-			// history = (history.splice(0, indexCourse + 1)).concat()
+			history = (history.splice(0, indexCourse)).concat(history.splice(indexCourse + 1, history.length));
 			history.unshift(toAdd);
 		}
+		
 		this.setState({curClass: newClass, history: history});
 		this.getCourseInfo(newClass);
 	}
@@ -98,26 +110,36 @@ class App extends React.Component<Props, State> {
 		this.selectClass(e.target.value);
 	}
 
-	onClickHistory(dept: string, num: string) {
+	onClickHistory = (dept: string, num: string) => {
+		console.log(dept);
 		this.selectDept(dept);
 		this.selectClass(num);
 	}
 
 	render() {
+
+		const classLIst = (this.state.curDept !== '') && (
+			<>
+				<br />
+				<label htmlFor="classlist">Select Class</label>
+				<br />
+				<select onChange={(e) => this.onSelectClass(e)} >
+					<option value="" selected={true} disabled={true}>Course</option>
+					{this.renderClassList()}
+				</select>
+			</>
+		);
+
 		return (
 			<div className="columns">
 				<div className={`column is-one-quarter`}>
 					<label htmlFor="selectDept">Select Department</label><br />
-					<select onChange={(e) => this.onSelectDept(e)}>
+					<select onChange={(e) => this.onSelectDept(e)} >
+						<option value="" selected={true} disabled={true}>Departments</option>
 						{ this.renderDeptOptions() }
 					</select>
-					{
-						(this.state.curDept !== '') ? (
-							<select onChange={(e) => this.onSelectClass(e)}>
-								{this.renderClassList()}
-							</select>
-						) : null
-					}
+					{ classLIst }
+					<History history={this.state.history} clickHistory={this.onClickHistory} />
 				</div>
 			<div className="column">
 				{
@@ -129,7 +151,6 @@ class App extends React.Component<Props, State> {
 						/>
 					) : null
 				}
-				<History history={this.state.history} clickHistory={this.onClickHistory} />
 			</div>
 			</div>
 		);
