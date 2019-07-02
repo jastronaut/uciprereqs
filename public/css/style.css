@@ -1,0 +1,34 @@
+#coursebadge h1 {
+	display: inline;
+}
+
+.checked-class {
+	cursor: pointer;
+}
+
+.title.is-4 {
+	margin-bottom: 0;
+}
+
+.hero {
+	background-color: #203b6a;
+}
+
+.hero-body .container .title {
+	color: #fff;
+}
+.hero-body .container .subtitle {
+	color: #aaa;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after {
+	border-color: #203b6a;
+}
+
+.half {
+	flex-basis:50%;
+}
+
+.is-warning {
+	background-color: #e9b51b;
+}
