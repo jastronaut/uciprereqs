@@ -2,8 +2,6 @@ import React from 'react';
 import  ClassInfo from './components/ClassInfo';
 import History from './components/History';
 import './App.css';
-// import console = require('console');
-// import console = require('console');
 
 interface Props {}
 interface State {
