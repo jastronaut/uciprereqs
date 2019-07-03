@@ -1,8 +1,8 @@
 import React from 'react';
-// import console = require('console');
+import { CourseInfo } from '../../Interfaces';
 
 interface Props {
-    reqs: any;
+    reqs: CourseInfo['requirements'];
 }
 
 interface MajorProps {

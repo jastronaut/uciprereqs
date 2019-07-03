@@ -25,7 +25,7 @@ const ClassInfo: React.FC<Props> = (props: Props) => {
     return (
         <section>
             {
-                (title === null || title === '') ? null : (
+                (title === null || title === '') && (
                     <>
                     <CourseBadge>
                         <h1 className={`title is-2`}>{dept} </h1>
@@ -42,8 +42,6 @@ const ClassInfo: React.FC<Props> = (props: Props) => {
                     </>
                 )
             }
-            
-            
         </section>
     );
 }

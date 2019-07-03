@@ -1,7 +1,8 @@
 import React from 'react';
+import { CourseInfo } from '../../Interfaces';
 
 interface Props {
-    listing: any;
+    listing: CourseInfo['listing'];
 }
 
 const renderQuarter = (quarter: string, professors: Array<string>) => {
@@ -22,15 +23,15 @@ const Listing : React.FC<Props> = (props: Props) => {
     return (
         <div className={`listing-row columns`}>
             {
-                (listing.Fall) ? renderQuarter("Fall", listing.Fall) : null
+                (listing.Fall) && renderQuarter("Fall", listing.Fall)
             }
 
             {
-                (listing.Winter) ? renderQuarter("Winter", listing.Winter) : null
+                (listing.Winter) && renderQuarter("Winter", listing.Winter)
             }
 
             {
-                (listing.Spring) ? renderQuarter("Winter", listing.Spring) : null
+                (listing.Spring) && renderQuarter("Winter", listing.Spring)
             }
         </div>
     );
