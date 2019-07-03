@@ -1,118 +1,21 @@
-import * as CONSTS from './constants';
+import * as VARS from './constants';
+import * as COLOR from './colors';
 
-// var canvas = new fabric.Canvas("c");
-
-function get_space_from_coords(x, y) {
-    return [Math.floor((x - wpad) / (rw + wpad)), Math.floor((y - hpad) / (rh + hpad))];
+function get_space_from_coords(x: number, y: number) {
+    return [Math.floor((x - VARS.wpad) / (VARS.rw + VARS.wpad)), Math.floor((y - VARS.hpad) / (VARS.rh + VARS.hpad))];
 }
-
-// canvas.on('mouse:wheel', function(opt) {
-//     var delta = opt.e.deltaY;
-//     var zoom = canvas.getZoom();
-//     zoom = zoom + delta/200;
-//     if (zoom > 20) zoom = 20;
-//     if (zoom < 0.01) zoom = 0.01;
-//     canvas.setZoom(zoom);
-//     opt.e.preventDefault();
-//     opt.e.stopPropagation();
-// });
-
-function animate_highlight(c) {
-    console.log(`old value: ${all[c].rect.fill}`);
-    var setColor = colorWantToTakeHighlight;
-    if (all[c].fill == colorTaken)
-        setColor = colorTakenHighlight;
-    all[c].rect.animate('fill', setColor, {
-        duration: 1000,
-        // easing: fabric.util.ease.easeOutElastic,
-        // onChange: function() {
-        //     all[c].rect.set({fill: setColor});
-        //     canvas.renderAll();
-        // },
-        onChange: canvas.renderAll.bind(canvas)
-    });
-
-}
-
-function animate_unhighlight(c, canvas) {
-    all[c].rect.animate('fill', all[c].fill, {
-        duration: 1000,
-        easing: fabric.util.ease.easeOutElastic,
-        // onChange: function() {
-        //     all[c].rect.set({fill: all[c].fill});
-        //     canvas.renderAll();
-        // },
-        onChange: canvas.renderAll.bind(canvas)
-    });
-}
-
-function highlight_all(c) {
-    if (all[c].fill == colorTaken)
-        all[c].rect.set({ fill: colorTakenHighlight });
-    else
-        all[c].rect.set({ fill: colorWantToTakeHighlight });
-
-    if (all[c].parents.length < 1) {
-        return;
-    }
-
-    for (var p of all[c].parents) {
-        highlight_all(p);
-    }
-}
-
-// function highlight_all(c) {
-//     animate_highlight(c);
-//     if (all[c].parents.length < 1) {
-//         return;
-//     }
-
-//     for (var p of all[c].parents) {
-//         highlight_all(p);
-//     }
-// }
-
-canvas.on('mouse:over', function (opts) {
-    if (opts.target.type == 'rect') {
-        var r, c;
-        [r, c] = get_space_from_coords(opts.target.left, opts.target.top);
-        highlight_all(spaces[r][c]);
-        canvas.renderAll();
-    }
-});
-
-function unhighlight_all(c) {
-    all[c].rect.set({ fill: all[c].fill });
-    // animate_unhighlight(c);
-    if (all[c].parents.length < 1) {
-        return;
-    }
-
-    for (var p of all[c].parents) {
-        unhighlight_all(p);
-    }
-}
-
-// canvas.on('mouse:out', function(opts) {
-//     if (opts.target.type == 'rect') {
-//         var r, c;
-//         [r, c] = get_space_from_coords(opts.target.left, opts.target.top);
-//         unhighlight_all(spaces[r][c]);
-//         canvas.renderAll();
-//     }
-// });
 
 function find_next_space(c, r = 0) { // find next space in SAME ROW
     var r = 0;
-    while (spaces[c].length > 0) {
-        for (var i = 0; i < spaces[c].length; i++) {
-            if (spaces[c][i] == '') {
+    while (VARS.spaces[c].length > 0) {
+        for (var i = 0; i < VARS.spaces[c].length; i++) {
+            if (VARS.spaces[c][i] == '') {
                 return [i, c];
             }
         }
 
-        if (spaces[c].length < rows) {
-            r = spaces[c].length;
+        if (VARS.spaces[c].length < VARS.rows) {
+            r = VARS.spaces[c].length;
             break;
         }
         c++;
@@ -121,24 +24,24 @@ function find_next_space(c, r = 0) { // find next space in SAME ROW
 }
 
 function shift_spaces_fwd(i = 0) {
-    spaces.unshift([]);
-    for (var j = i + 1; j < spaces.length; j++) {
-        for (var c of spaces[j]) {
-            all[c].c++;
-            let newX = all[c].x + (rw + wpad);
-            all[c].txt.set({ left: newX })
-            all[c].txt.setCoords();
-            all[c].x = newX;
-            all[c].rect.set({ left: newX });
-            all[c].rect.setCoords();
+    VARS.spaces.unshift([]);
+    for (var j = i + 1; j < VARS.spaces.length; j++) {
+        for (var c of VARS.spaces[j]) {
+            VARS.allNodes[c].c++;
+            let newX = VARS.allNodes[c].x + (VARS.rw + VARS.wpad);
+            VARS.allNodes[c].txt.set({ left: newX })
+            VARS.allNodes[c].txt.setCoords();
+            VARS.allNodes[c].x = newX;
+            VARS.allNodes[c].rect.set({ left: newX });
+            VARS.allNodes[c].rect.setCoords();
         }
     }
 
-    for (var j = i + 1; j < spaces.length; j++) {
-        for (var c of spaces[j]) {
-            for (var ch in all[c].lines) {
-                all[c].lines[ch].set({ left: all[c].x + rw });
-                all[c].lines[ch].setCoords();
+    for (var j = i + 1; j < VARS.spaces.length; j++) {
+        for (var c of VARS.spaces[j]) {
+            for (var ch in VARS.allNodes[c].lines) {
+                VARS.allNodes[c].lines[ch].set({ left: VARS.allNodes[c].x + VARS.rw });
+                VARS.allNodes[c].lines[ch].setCoords();
             }
         }
     }
@@ -147,9 +50,9 @@ function shift_spaces_fwd(i = 0) {
 
 function find_prev_space(c) {
     var r = 0;
-    while (spaces[c].length > 0) {
-        if (spaces[c].length < rows) {
-            r = spaces[c].length;
+    while (VARS.spaces[c].length > 0) {
+        if (VARS.spaces[c].length < VARS.rows) {
+            r = VARS.spaces[c].length;
             break;
         }
         c--;
@@ -159,7 +62,7 @@ function find_prev_space(c) {
 }
 
 function make_parent_line(px, py, cx, cy) {
-    return new fabric.Line([px + rw, py + rh / 2, cx, cy + rh / 2], {
+    return new fabric.Line([px + VARS.rw, py + VARS.rh / 2, cx, cy + VARS.rh / 2], {
         fill: linecolor,
         stroke: linecolor,
         strokeWidth: linew,
@@ -167,96 +70,27 @@ function make_parent_line(px, py, cx, cy) {
     });
 }
 
-function makeXY(r, c) {
-    reutrn[wpad + c * (rw + wpad), hpad + r * (rh + hpad)];
+function makeXY(r: number, c) {
+    return [VARS.wpad + c * (VARS.rw + VARS.wpad), VARS.hpad + r * (VARS.rh + VARS.hpad)];
 }
 
 function makeX(c) {
-    return wpad + c * (rw + wpad);
+    return VARS.wpad + c * (VARS.rw + VARS.wpad);
 }
 
 function makeY(r) {
-    return hpad + r * (rh + hpad);
+    return VARS.hpad + r * (VARS.rh + VARS.hpad);
 }
 
 function shift_child(cur) {
-    if (all[cur].children.length == 0) {
+    if (VARS.allNodes[cur].children.length == 0) {
         var r, c;
-        [r, c] = find_next_space(all[cur].c + 1);
-        all[cur].r = r;
-        all[cur].c = c;
-        all[cur].set({ left: makeX(c), top: makeY(c) });
+        [r, c] = find_next_space(VARS.allNodes[cur].c + 1);
+        VARS.allNodes[cur].r = r;
+        VARS.allNodes[cur].c = c;
+        VARS.allNodes[cur].set({ left: makeX(c), top: makeY(c) });
     }
 }
-
-// class OrGroup {
-//     constructor(goal) {
-//         this.goal = goal;
-//         this.nodes = [];
-//         this.rect = new fabric.Rect({
-//             left: 0,
-//             top: 0,
-//             fill: '#aaaaaa',
-//             width: orw,
-//             height: 0,
-//             centeredScaling: true,
-//             selectable: false,
-//         });
-//         canvas.add(this.rect);
-//         this.y = 0;
-//         this.x = 0;
-//     }
-
-//     add_node(c) {
-//         this.nodes.push(c);
-//         if (all[c].x > (this.x + orpadw))
-//             this.x = all[c].x - orpadw;
-//         if (all[c].y > (this.y - orpadh))
-//             this.y = all[c].y + orpadh;
-//         this.rect.set({left: this.x, top: this.y});
-//         this.rect.setCoords();
-//         canvas.renderAll();
-//     }
-// }
-
-class Component {
-    constructor(id, startR, startC, endR, endC, nodes = []) {
-        this.id = id;
-        this.nodes = nodes;
-        this.startR = startR;
-        this.startC = startC;
-        this.endR = endR;
-        this.endC = endC;
-        this.totalSize = (endR - startR) * (endC - startC);
-    }
-
-    add_class(c) {
-        console.log(`(${this.startR}, ${this.startC}), (${this.startC}, ${this.endC})`);
-        this.nodes.push(c);
-        if (all[c].r < this.startR)
-            this.startR = all[c].r;
-        if (all[c].r > this.endR)
-            this.endR = all[c].r;
-        if (all[c].c < this.startC)
-            this.startC = all[c].c;
-        if (all[c] > this.endC)
-            this.endC = all[c].c;
-        console.log(`(${this.startR}, ${this.startC}), (${this.startC}, ${this.endC})`);
-        console.log(this.totalSize);
-        this.totalSize = (this.endR - this.startR) * (this.endC - this.startC);
-        console.log(this.totalSize);
-    }
-
-    lock_component() {
-        for (var c = this.startC; c <= this.endC; c++) {
-            for (var r = this.startR; r <= this.endR; r++) {
-                if (!spaces[c][r])
-                    spaces[c][r] = 'x';
-            }
-        }
-    }
-}
-
 
 class ClassNode {
     constructor(title, top, left, r, c, color = colorTaken, component = 'x') {
@@ -270,8 +104,8 @@ class ClassNode {
             left: left,
             top: top,
             fill: color,
-            width: rw,
-            height: rh,
+            width: VARS.rw,
+            height: VARS.rh,
             centeredScaling: true,
             selectable: false,
             cornerStyle: 'circle',
@@ -283,14 +117,14 @@ class ClassNode {
         this.y = top;
         this.txt = new fabric.Textbox(title, {
             left: this.x,
-            top: this.y + rh / 3,
-            width: rw,
+            top: this.y + VARS.rh / 3,
+            width: VARS.rw,
             fill: txtcolor,
             fontFamily: 'sans-serif',
             selectable: false,
             evented: false,
             textAlign: 'center',
-            fontSize: rh / 4
+            fontSize: VARS.rh / 4
         });
         this.lines = {};
         canvas.add(this.rect, this.txt);
@@ -302,32 +136,32 @@ class ClassNode {
     add_child(child) {
         this.children.push(child);
         var cx, cy;
-        if (!all[child] || all[child].c <= this.c) {
+        if (!VARS.allNodes[child] || VARS.allNodes[child].c <= this.c) {
             var r, c;
             [r, c] = find_next_space(this.c + 1);
             var cy = makeY(r);
             var cx = makeX(c);
-            if (all[child]) {
-                all[child].r = r;
-                all[child].c = c;
-                all[child].x = cx;
-                all[child].y = cy;
-                all[child].rect.set({ top: cy, left: cx });
-                all[child].rect.setCoords();
-                spaces[c][r] = '';
-                all[child].txt.set({ top: cy + rh / 4, left: cx });
-                all[child].txt.setCoords();
-                spaces[c].push(child);
+            if (VARS.allNodes[child]) {
+                VARS.allNodes[child].r = r;
+                VARS.allNodes[child].c = c;
+                VARS.allNodes[child].x = cx;
+                VARS.allNodes[child].y = cy;
+                VARS.allNodes[child].rect.set({ top: cy, left: cx });
+                VARS.allNodes[child].rect.setCoords();
+                VARS.spaces[c][r] = '';
+                VARS.allNodes[child].txt.set({ top: cy + VARS.rh / 4, left: cx });
+                VARS.allNodes[child].txt.setCoords();
+                VARS.spaces[c].push(child);
             } else {
-                all[child] = new ClassNode(child, cy, cx, r, c);
-                spaces[c].push(child);
+                VARS.allNodes[child] = new ClassNode(child, cy, cx, r, c);
+                VARS.spaces[c].push(child);
             }
         } else {
-            cx = all[child].x;
-            cy = all[child].y;
+            cx = VARS.allNodes[child].x;
+            cy = VARS.allNodes[child].y;
         }
 
-        all[child].parents.push(this.title);
+        VARS.allNodes[child].parents.push(this.title);
         this.lines[child] = make_parent_line(this.x, this.y, cx, cy);
 
         canvas.add(this.lines[child]);
@@ -337,28 +171,28 @@ class ClassNode {
     add_parent(parent) {
         this.parents.push(parent);
         var px, py;
-        if (all[parent]) {
-            // if (all[parent].c >= this.c) {
+        if (VARS.allNodes[parent]) {
+            // if (VARS.allNodes[parent].c >= this.c) {
 
             // }
-            px = all[parent].x;
-            py = all[parent].y;
+            px = VARS.allNodes[parent].x;
+            py = VARS.allNodes[parent].y;
         } else {
             if (this.c == 0)
                 shift_spaces_fwd();
 
             var r, c;
             [r, c] = find_prev_space(this.c - 1);
-            py = hpad + r * (rh + hpad);
-            px = wpad + c * (rw + wpad);
-            all[parent] = new ClassNode(parent, py, px, r, c);
-            spaces[c].push(parent);
+            py = VARS.hpad + r * (VARS.rh + VARS.hpad);
+            px = VARS.wpad + c * (VARS.rw + VARS.wpad);
+            VARS.allNodes[parent] = new ClassNode(parent, py, px, r, c);
+            VARS.spaces[c].push(parent);
         }
-        all[parent].children.push(this.title);
-        all[parent].lines[this.title] = make_parent_line(px, py, this.x, this.y);
-        canvas.sendToBack(all[parent].lines[this.title]);
-        canvas.sendBackwards(all[parent].lines[this.title]);
-        canvas.add(all[parent].lines[this.title]);
+        VARS.allNodes[parent].children.push(this.title);
+        VARS.allNodes[parent].lines[this.title] = make_parent_line(px, py, this.x, this.y);
+        canvas.sendToBack(VARS.allNodes[parent].lines[this.title]);
+        canvas.sendBackwards(VARS.allNodes[parent].lines[this.title]);
+        canvas.add(VARS.allNodes[parent].lines[this.title]);
     }
 
     info() {
@@ -396,11 +230,11 @@ orGroups = {};
 
 components = {}
 function add_orphan(title, color, component = 'x') {
-    if (!all[title]) {
+    if (!VARS.allNodes[title]) {
         var r, c;
         [r, c] = find_next_space(0);
-        spaces[c].push(title);
-        all[title] = new ClassNode(title, hpad + r * (rh + hpad), wpad + c * (rw + wpad), r, c, color, component);
+        VARS.spaces[c].push(title);
+        VARS.allNodes[title] = new ClassNode(title, VARS.hpad + r * (VARS.rh + VARS.hpad), VARS.wpad + c * (VARS.rw + VARS.wpad), r, c, color, component);
     }
     return title;
 }
@@ -427,7 +261,7 @@ function add_goal(c, goal) {
     // add_orphan(c, curcolor, goal);
     // components[goal].add_class(c);
     for (var parent of classes[c]) {
-        all[c].add_parent(parent);
+        VARS.allNodes[c].add_parent(parent);
         add_goal(parent, goal);
     }
 }
@@ -438,12 +272,12 @@ const add_classes = (wantToTake: Array<string>, next: any) => {
     // }
 
     for (var n in next) {
-        all.c.add_child(next[n]);
+        VARS.allNodes.c.add_child(next[n]);
     }
 };
 
 export const init_graph = (wantToTake: Array<string>, next: any, canvas: any) => {
-    rows = Math.floor(canvas.height / (hpad + rh));
+    VARS.rows = Math.floor(canvas.height / (VARS.hpad + VARS.rh));
 
     canvas.on('mouse:wheel', function (opt: any) {
         const delta = opt.e.deltaY;
@@ -459,7 +293,7 @@ export const init_graph = (wantToTake: Array<string>, next: any, canvas: any) =>
     canvas.on('mouse:out', function (opts: any) {
         if (opts.target.type == 'rect') {
             const [r, c] = get_space_from_coords(opts.target.left, opts.target.top);
-            unhighlight_all(spaces[r][c]);
+            unhighlight_all(VARS.spaces[r][c]);
             canvas.renderAll();
         }
     }
