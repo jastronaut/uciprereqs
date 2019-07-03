@@ -4,16 +4,11 @@ import Listing from '../Listing';
 import MajorReqs from '../MajorReqs';
 import Next from '../Next';
 import { CourseBadge } from './styles';
+import { CourseInfo } from '../../Interfaces';
 
-interface Props {
+interface Props extends CourseInfo {
     dept: string;
     num: string;
-    title: string;
-    prereqs: Array<string>;
-    desc: string;
-    requirements: any;
-    listing: any;
-    next: Array<string>;
 }
 
 const ClassInfo: React.FC<Props> = (props: Props) => {

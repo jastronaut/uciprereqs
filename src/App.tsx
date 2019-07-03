@@ -1,4 +1,5 @@
 import React from 'react';
+import { CourseInfo } from './Interfaces';
 import  ClassInfo from './components/ClassInfo';
 import History from './components/History';
 import './App.css';
@@ -8,7 +9,7 @@ interface State {
 	curDept: string;
 	curClass: string;
 	classList: Array<string>;
-	courseInfo: any;
+	courseInfo: CourseInfo | null;
 	history: Array<string>;
 }
 
@@ -34,9 +35,9 @@ class App extends React.Component<Props, State> {
 	}
 
 	selectDept(dept: string) {
-		console.log(dept);
 		this.setState({curDept: dept, curClass: ''});
 		this.getClassList(dept);
+		console.log(this.state.classList);
 	}
 
 	onSelectDept(e: any) {
@@ -58,22 +59,13 @@ class App extends React.Component<Props, State> {
 	}
 
 	getCourseInfo(theClass: string) {
-		const xhr = new XMLHttpRequest();
-		xhr.responseType = 'json';
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				this.setState({courseInfo: xhr.response});
-			}
-		}
-
-		xhr.open('GET', `http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${this.state.curDept}&selectedNum=${theClass}`, true);
-		xhr.send();
-
 		fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${this.state.curDept}&selectedNum=${theClass}`)
 			.then((response) => 
-			//finish this
 				response.json()
-			)
+			).then((jsonRes) => {
+				//@ts-ignore
+				this.setState({courseInfo: jsonRes})
+			});
 	}
 
 	renderClassList() {
@@ -98,8 +90,9 @@ class App extends React.Component<Props, State> {
 			history.unshift(toAdd);
 		}
 		
-		this.setState({curClass: newClass, history: history});
 		this.getCourseInfo(newClass);
+
+		this.setState({curClass: newClass, history: history});
 	}
 
 	onSelectClass(e: any) {
