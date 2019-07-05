@@ -1,6 +1,9 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { CourseInfo } from './Interfaces';
-import  ClassInfo from './components/ClassInfo';
+import ClassList from './components/ClassList';
+import DeptList from './components/DeptList';
+import ClassInfo from './components/ClassInfo';
 import History from './components/History';
 import './App.css';
 
@@ -30,23 +33,20 @@ class App extends React.Component<Props, State> {
 		}
 
 		// this.onClickHistory = this.onClickHistory.bind(this);
-		this.selectDept = this.selectDept.bind(this);
-		this.selectClass = this.selectClass.bind(this);
+		// this.selectDept = this.selectDept.bind(this);
+		// this.selectClass = this.selectClass.bind(this);
 	}
 
 	selectDept(dept: string) {
 		this.setState({curDept: dept, curClass: ''});
 		this.getClassList(dept);
-		console.log(this.state.classList);
 	}
 
-	onSelectDept(e: any) {
+	onSelectDept = (e: any) => {
 		this.selectDept(e.target.value);
 	}
 
-	renderDeptOptions() {
-		return (Depts.map((dept) => (<option value={dept}>{dept}</option>)));
-	}
+	
 
 	getClassList(theDept: string) {
 		fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_courses/?selectedDept=${theDept}`)
@@ -93,41 +93,38 @@ class App extends React.Component<Props, State> {
 		this.getCourseInfo(newClass);
 
 		this.setState({curClass: newClass, history: history});
+		console.log(this.state.courseInfo);
+
 	}
 
-	onSelectClass(e: any) {
+	onSelectClass = (e: any) => {
 		this.selectClass(e.target.value);
 	}
 
 	onClickHistory = (dept: string, num: string) => {
-		console.log(dept);
 		this.selectDept(dept);
 		this.selectClass(num);
 	}
 
 	render() {
-
-		const classLIst = (this.state.curDept !== '') && (
-			<>
-				<br />
-				<label htmlFor="classlist">Select Class</label>
-				<br />
-				<select onChange={(e) => this.onSelectClass(e)} >
-					<option value="" selected={true} disabled={true}>Course</option>
-					{this.renderClassList()}
-				</select>
-			</>
-		);
-
 		return (
+				
 			<div className="columns">
 				<div className={`column is-one-quarter`}>
-					<label htmlFor="selectDept">Select Department</label><br />
-					<select onChange={(e) => this.onSelectDept(e)} >
-						<option value="" selected={true} disabled={true}>Departments</option>
-						{ this.renderDeptOptions() }
-					</select>
-					{ classLIst }
+					<DeptList onSelect={this.onSelectDept} />
+					<br />
+					<Switch>
+						<Route path="/:dept" render={({match}) => { 
+							// this.selectDept(match.params.dept);
+							return (
+							<ClassList classes={this.state.classList} onSelect={this.onSelectClass} />);
+						 }} />
+						<Route path="/:dept/:num" render={({match}) => {
+							// this.selectDept(match.params.dept);
+							return (
+							<ClassList classes={this.state.classList} onSelect={this.onSelectClass} />);
+						}} />
+					</Switch>
 					<History history={this.state.history} clickHistory={this.onClickHistory} />
 				</div>
 			<div className="column">
@@ -138,10 +135,11 @@ class App extends React.Component<Props, State> {
 							dept={this.state.curDept}
 							num={this.state.curClass}
 						/>
-					) : null
+					) : <h1>lol</h1>
 				}
 			</div>
 			</div>
+
 		);
 	}
 }
