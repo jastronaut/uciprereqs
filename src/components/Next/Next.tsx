@@ -1,7 +1,8 @@
 import React from 'react';
+import { CourseInfo } from '../../Interfaces';
 
 interface Props {
-    next: Array<string>;
+    next: CourseInfo['next'];
 }
 
 const Next: React.FC<Props> = (props: Props) => {

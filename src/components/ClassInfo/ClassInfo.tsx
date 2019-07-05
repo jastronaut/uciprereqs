@@ -4,16 +4,11 @@ import Listing from '../Listing';
 import MajorReqs from '../MajorReqs';
 import Next from '../Next';
 import { CourseBadge } from './styles';
+import { CourseInfo } from '../../Interfaces';
 
-interface Props {
+interface Props extends CourseInfo {
     dept: string;
     num: string;
-    title: string;
-    prereqs: Array<string>;
-    desc: string;
-    requirements: any;
-    listing: any;
-    next: Array<string>;
 }
 
 const ClassInfo: React.FC<Props> = (props: Props) => {
@@ -30,7 +25,7 @@ const ClassInfo: React.FC<Props> = (props: Props) => {
     return (
         <section>
             {
-                (title === null || title === '') ? null : (
+                (title === null || title === '') && (
                     <>
                     <CourseBadge>
                         <h1 className={`title is-2`}>{dept} </h1>
@@ -47,8 +42,6 @@ const ClassInfo: React.FC<Props> = (props: Props) => {
                     </>
                 )
             }
-            
-            
         </section>
     );
 }
