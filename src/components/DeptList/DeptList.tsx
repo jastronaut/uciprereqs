@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const DEPTS = [
     'CS',
@@ -12,12 +11,8 @@ interface Props {
 
 const DeptList: React.FC<Props> = (props: Props) => {
     const { onSelect } = props;
-    const onClickDept = (dept: string) => {window.location.replace(`/${dept}/`);};
     const renderDepts = (dept: string) => (
-        <option
-            value={dept}
-            onClick={() => onClickDept(dept)}
-        >
+        <option value={dept}>
             {dept}
         </option>
     );

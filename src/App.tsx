@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { CourseInfo } from './Interfaces';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import ClassList from './components/ClassList';
 import DeptList from './components/DeptList';
 import ClassInfo from './components/ClassInfo';
@@ -12,29 +11,22 @@ interface State {
 	curDept: string;
 	curClass: string;
 	classList: Array<string>;
-	courseInfo: CourseInfo | null;
 	history: Array<string>;
 }
 
 const NUM_HISTORY = 3;
 
-const Depts = ['CS', 'INF'];
-
-// const App: React.FC = () => {
 class App extends React.Component<Props, State> {
+
 	constructor(props: Props) {
 		super(props);
 		this.state = {
 			curDept: '',
 			curClass: '',
 			classList: [],
-			courseInfo: null,
 			history: [],
 		}
 
-		// this.onClickHistory = this.onClickHistory.bind(this);
-		// this.selectDept = this.selectDept.bind(this);
-		// this.selectClass = this.selectClass.bind(this);
 	}
 
 	selectDept(dept: string) {
@@ -46,8 +38,6 @@ class App extends React.Component<Props, State> {
 		this.selectDept(e.target.value);
 	}
 
-	
-
 	getClassList(theDept: string) {
 		fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_courses/?selectedDept=${theDept}`)
 			.then((response) =>
@@ -55,16 +45,6 @@ class App extends React.Component<Props, State> {
 			).then((jsonRes) => {
 				//@ts-ignore
 				this.setState({classList: jsonRes.courses})
-			});
-	}
-
-	getCourseInfo(theClass: string) {
-		fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${this.state.curDept}&selectedNum=${theClass}`)
-			.then((response) => 
-				response.json()
-			).then((jsonRes) => {
-				//@ts-ignore
-				this.setState({courseInfo: jsonRes})
 			});
 	}
 
@@ -90,11 +70,7 @@ class App extends React.Component<Props, State> {
 			history.unshift(toAdd);
 		}
 		
-		this.getCourseInfo(newClass);
-
 		this.setState({curClass: newClass, history: history});
-		console.log(this.state.courseInfo);
-
 	}
 
 	onSelectClass = (e: any) => {
@@ -113,8 +89,8 @@ class App extends React.Component<Props, State> {
 				<div className={`column is-one-quarter`}>
 					<DeptList onSelect={this.onSelectDept} />
 					<br />
-					<Switch>
-						<Route path="/:dept" render={({match}) => { 
+					{/* <Switch> */}
+						{/* <Route path="/:dept" render={({match}) => { 
 							// this.selectDept(match.params.dept);
 							return (
 							<ClassList classes={this.state.classList} onSelect={this.onSelectClass} />);
@@ -123,19 +99,20 @@ class App extends React.Component<Props, State> {
 							// this.selectDept(match.params.dept);
 							return (
 							<ClassList classes={this.state.classList} onSelect={this.onSelectClass} />);
-						}} />
-					</Switch>
+						}} /> */}
+					{/* </Switch> */}
+					{
+						((this.state.curDept !== '') && <ClassList classes={this.state.classList} onSelect={this.onSelectClass} />)
+					}
 					<History history={this.state.history} clickHistory={this.onClickHistory} />
 				</div>
 			<div className="column">
 				{
-					(this.state.courseInfo !== null && this.state.curClass !== '') ? (
+					(this.state.curClass !== '') && (
 						<ClassInfo
-							{...this.state.courseInfo}
 							dept={this.state.curDept}
 							num={this.state.curClass}
-						/>
-					) : <h1>lol</h1>
+						/>)
 				}
 			</div>
 			</div>
