@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export const DEPTS = [
@@ -8,10 +7,11 @@ export const DEPTS = [
 
 interface Props {
     onSelect: (...args: any) => any;
+    selectedDept?: string;
 }
 
 const DeptList: React.FC<Props> = (props: Props) => {
-    const { onSelect } = props;
+    const { onSelect, selectedDept='' } = props;
     const renderDepts = (dept: string) => (
         <option key={dept} value={dept}>
             {dept}
@@ -22,8 +22,8 @@ const DeptList: React.FC<Props> = (props: Props) => {
     return (
         <>
         <label htmlFor="selectDept">Select Department</label><br />
-        <select onChange={(e) => onSelect(e)} >
-            <option value="" selected={true} disabled={true}>Departments</option>
+        <select onChange={(e) => onSelect(e)} value={selectedDept} >
+            <option value="" disabled={true}>Departments</option>
             { depts }
         </select>
         </>
