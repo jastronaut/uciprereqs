@@ -10,15 +10,19 @@ const Next: React.FC<Props> = (props: Props) => {
     return (
         <div className="box">
             <h3 className={`title is-3`}>Next classes to take</h3>
-            <table className={`table is-hoverable`}>
-                <tbody>
-                    {
-                        next.map((course) => 
-                                    (<tr key={course}><td>{course}</td></tr>)
-                                )
-                    }
-                </tbody>
-            </table>
+            {
+                (next.length > 0) ? (
+                <table className={`table is-hoverable`}>
+                    <tbody>
+                        {
+                            next.map(course => (<tr key={course}><td>{course}</td></tr>))
+                        }
+                    </tbody>
+                </table>
+                ) : (
+                    <p>This class is not a prerequisite for any other classes.</p>
+                )
+            }
         </div>
     );
 };
