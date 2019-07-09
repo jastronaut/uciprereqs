@@ -1,17 +1,17 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Route, Switch} from 'react-router-dom';
-import ClassList from './components/ClassList';
+import CourseList from './components/CourseList';
 import DeptList, { DEPTS } from './components/DeptList';
-import ClassInfo from './components/ClassInfo';
+import CourseInfo from './components/CourseInfo';
 import History from './components/History';
 import './App.css';
 
 interface Props extends RouteComponentProps {}
 interface State {
 	curDept: string;
-	curClass: string;
-	classList: Array<string>;
+	curCourse: string;
+	courseList: Array<string>;
 	history: Array<string>;
 }
 
@@ -23,43 +23,44 @@ class App extends React.Component<Props, State> {
 		super(props);
 		this.state = {
 			curDept: '',
-			curClass: '',
-			classList: [],
+			curCourse: '',
+			courseList: [],
 			history: [],
 		}
 
 	}
 
-	selectDept(dept: string) {
-		this.props.history.push(`/${dept}`);
-		this.setState({curDept: dept, curClass: ''});
-		this.getClassList(dept);
+	selectDept(dept: string, pushHist=true) {
+		pushHist && this.props.history.push(`/${dept}`);
+		this.setState({curDept: dept, curCourse: ''});
+		this.getCourseList(dept);
 	}
 
-	onSelectDept = (e: any) => {
-		this.selectDept(e.target.value);
+	onSelectDept = (e: React.FormEvent<EventTarget>) => {
+		let target = e.target as HTMLSelectElement;
+		this.selectDept(target.value);
 	}
 
-	getClassList(theDept: string) {
+	getCourseList(theDept: string) {
 		fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_courses/?selectedDept=${theDept}`)
 			.then((response) =>
 				response.json()
 			).then((jsonRes) => {
 				//@ts-ignore
-				this.setState({classList: jsonRes.courses})
+				this.setState({courseList: jsonRes.courses})
 			});
 	}
 
-	renderClassList() {
-		const classList = this.state.classList;
+	renderCourseList() {
+		const courseList = this.state.courseList;
 		return (
-			classList.map((aClass: string) => (
+			courseList.map((aClass: string) => (
 				<option value={aClass}>{aClass}</option>
 			))
 		);
 	}
 
-	selectClass(newClass: string) {
+	selectClass(newClass: string, pushHist=true) {
 		let history = this.state.history;
 		const toAdd = this.state.curDept + " " + newClass;
 		const indexCourse = history.indexOf(toAdd);
@@ -71,8 +72,8 @@ class App extends React.Component<Props, State> {
 			history = (history.splice(0, indexCourse)).concat(history.splice(indexCourse + 1, history.length));
 			history.unshift(toAdd);
 		}
-		this.props.history.push(`/${this.state.curDept}/${newClass}`);
-		this.setState({curClass: newClass, history: history});
+		pushHist && this.props.history.push(`/${this.state.curDept}/${newClass}`);
+		this.setState({curCourse: newClass, history: history});
 	}
 
 	onSelectClass = (e: any) => {
@@ -84,46 +85,55 @@ class App extends React.Component<Props, State> {
 		this.selectClass(num);
 	}
 
-	displayClassList = () => {
-		if (this.props.history.location.pathname !== '/') {
-			const dept = this.props.history.location.pathname.split('/')[1];
+	displayCourseList = () => {
+		const dept = this.state.curDept;
+		const course = this.state.curCourse;
+		if (dept !== '') {
 			if (DEPTS.includes(dept)) {
-				return <ClassList classes={this.state.classList} onSelect={this.onSelectClass} />
+				return <CourseList classes={this.state.courseList} onSelect={this.onSelectClass} selectedCourse={course} />
 			} else {
 				return <p className="has-text-danger">Please select a valid department.</p>
 			}
 		}
-		return null;
 	}
 
 	createRoutes = () => (
 		<Switch>
 			<Route path="/:dept/:num" render={({match}) => (
-				<ClassInfo
+				<CourseInfo
 					dept={match.params.dept}
 					num={match.params.num}
 					/>
 			)} />
 			<Route path="/" render={() => (
-				this.state.curClass !== '' ?
-				<ClassInfo
+				this.state.curCourse !== '' ?
+				<CourseInfo
 					dept={this.state.curDept}
-					num={this.state.curClass}
+					num={this.state.curCourse}
 				/>
 				: null
 			)} />
 		</Switch>
 	)
+	
+	componentDidMount() {
+		let [dept, course=''] = this.props.history.location.pathname.split('/').splice(1);
+		(dept !== '') && this.selectDept(dept, false);
+		(course !== '') && this.selectClass(course, false);
+	}
 
 	render() {
 		return (
 				
 			<div className="columns">
 				<div className={`column is-one-quarter`}>
-					<DeptList onSelect={this.onSelectDept} />
+					<DeptList
+						onSelect={this.onSelectDept}
+						selectedDept={this.state.curDept}
+					/>
 					<br />
 					{
-						this.displayClassList()
+						this.displayCourseList()
 					}
 					<History history={this.state.history} clickHistory={this.onClickHistory} />
 				</div>
