@@ -30,17 +30,23 @@ const Major: React.FC<MajorProps> = (props: MajorProps) => {
 
 const MajorReqs: React.FC<Props> = (props: Props) => {
     const reqs = props.reqs;
-    let allSpecs : Array<any> = [];
+    let allSpecs : Array<JSX.Element> = [];
+
     for (var major in reqs) {
-        //@ts-ignore
-        allSpecs.push((<Major key={major} major={major} specs={reqs[major]} />));
+        if (reqs[major].length > 0)
+            allSpecs.push(<Major key={major} major={major} specs={reqs[major]} />);
     }
-    return (
-        <div>
-            <h3 className={`title is-3`}>Major Requirements Filled</h3>
-            {allSpecs}
-        </div>
-    );
+
+    if (allSpecs.length > 0) {
+        return (
+            <div>
+                <h3 className={`title is-3`}>Major Requirements Filled</h3>
+                {allSpecs}
+            </div>
+        );
+    }
+
+    return null;
 }
 
 export default MajorReqs;
