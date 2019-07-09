@@ -14,7 +14,7 @@ const Next: React.FC<Props> = (props: Props) => {
                 <tbody>
                     {
                         next.map((course) => 
-                                    (<tr><td>{course}</td></tr>)
+                                    (<tr key={course}><td>{course}</td></tr>)
                                 )
                     }
                 </tbody>

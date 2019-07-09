@@ -6,7 +6,7 @@ interface Props {
 
 const Prereqs: React.FC<Props> = (props: Props) => {
     const { allPrereqs } = props;
-    const prereqsList = allPrereqs.map((p) => (<tr><td>{p}</td></tr>));
+    const prereqsList = allPrereqs.map((p) => (<tr key={p}><td>{p}</td></tr>));
     return (
         <div className={`box prereqs`}>
             <h3 className={`title is-3`}>Prerequisites</h3>

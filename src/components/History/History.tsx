@@ -31,7 +31,7 @@ const History: React.FC<Props> = (props: Props) => {
                 <tbody>
                     {
                         history!.map(
-                            (course) => <ViewedClass course={course} clickHistory={clickHistory} />
+                            (course) => <ViewedClass key={course} course={course} clickHistory={clickHistory} />
                         )
                     }
                 </tbody>

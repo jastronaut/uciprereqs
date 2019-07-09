@@ -19,7 +19,7 @@ const Major: React.FC<MajorProps> = (props: MajorProps) => {
             <tbody>
             {
                 (specs) ? 
-                specs.map((spec: string) => (<tr><td>{spec}</td></tr>)) : null
+                specs.map((spec: string) => (<tr key={spec}><td>{spec}</td></tr>)) : null
             }
             </tbody>
             </table>
@@ -33,7 +33,7 @@ const MajorReqs: React.FC<Props> = (props: Props) => {
     let allSpecs : Array<any> = [];
     for (var major in reqs) {
         //@ts-ignore
-        allSpecs.push((<Major major={major} specs={reqs[major]} />));
+        allSpecs.push((<Major key={major} major={major} specs={reqs[major]} />));
     }
     return (
         <div>

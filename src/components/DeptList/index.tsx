@@ -13,7 +13,7 @@ interface Props {
 const DeptList: React.FC<Props> = (props: Props) => {
     const { onSelect } = props;
     const renderDepts = (dept: string) => (
-        <option value={dept}>
+        <option key={dept} value={dept}>
             {dept}
         </option>
     );

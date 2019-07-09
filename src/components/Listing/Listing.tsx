@@ -12,7 +12,7 @@ const renderQuarter = (quarter: string, professors: Array<string>) => {
                 <p>{quarter}</p>
             </div>
             <div className={`message-body quartercontent`}>
-                {professors.map((prof) => (<div className="professor-listing">{prof}</div>))}
+                {professors.map((prof) => (<div key={prof} className="professor-listing">{prof}</div>))}
             </div>
         </div>
     );

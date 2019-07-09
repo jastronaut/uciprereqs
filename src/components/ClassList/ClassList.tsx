@@ -11,7 +11,7 @@ const ClassList: React.FC<Props> = (props: Props) => {
     const renderClassList = () => {
 		return (
 			classes.map((aClass) => (
-				<option value={aClass}>{aClass}</option>
+				<option key={aClass} value={aClass}>{aClass}</option>
 			))
 		);
 	}
@@ -21,7 +21,7 @@ const ClassList: React.FC<Props> = (props: Props) => {
             <label htmlFor="classlist">Select Class</label>
             <br />
             <select onChange={(e) => onSelect(e)} >
-                <option value="" selected={true} disabled={true}>Course</option>
+                <option value="" selected disabled={true}>Course</option>
                 {renderClassList()}
             </select>
         </>
