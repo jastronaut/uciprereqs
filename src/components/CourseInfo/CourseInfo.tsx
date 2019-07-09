@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Prereqs from '../Prereqs';
 import Listing from '../Listing';
 import MajorReqs from '../MajorReqs';
@@ -17,10 +17,13 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
         num,
     } = props;
     const [info, setCourseInfo] = useState<InfoType | null>(null);
-
-    fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${dept}&selectedNum=${num}`)
-        .then(response => response.json())
-        .then(body => setCourseInfo(body));
+    useEffect(() => {
+        console.log(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${dept}&selectedNum=${num}`);
+        fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${dept}&selectedNum=${num}`)
+            .then(response => response.json())
+            .then(body => setCourseInfo(body));
+    }, [dept, num]);
+    
 
     return (
         <section>
@@ -33,7 +36,11 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
                 </CourseBadge>
                 <h3 className={`subtitle is-3 has-text-gray`}>{info.title}</h3>
                 <article className={`message desc`}>
-                    <div className={`message-body desc`}>{info.desc}</div>
+                    <div className={`message-body desc`}>
+                        {
+                            info.desc ? info.desc : "(No description provided)"
+                        }
+                    </div>
                 </article>
                 <Prereqs allPrereqs={info.prereqs} />
                 <Listing listing={info.listing} />
