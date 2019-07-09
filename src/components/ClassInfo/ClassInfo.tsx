@@ -19,18 +19,13 @@ const ClassInfo: React.FC<Props> = (props: Props) => {
     const [courseInfo, setCourseInfo] = useState<CourseInfo | null>(null);
 
     fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${dept}&selectedNum=${num}`)
-        .then((response) => 
-            response.json()
-        ).then((jsonRes) => {
-            //@ts-ignore
-            setCourseInfo(jsonRes)
-    });
+        .then(response => response.json())
+        .then(body => setCourseInfo(body));
 
-    //@ts-ignore
     return (
         <section>
             {
-                (courseInfo ) ? (
+                (courseInfo) ? (
                 <>
                 <CourseBadge>
                 <h1 className={`title is-2`}>{dept} </h1>
@@ -46,11 +41,13 @@ const ClassInfo: React.FC<Props> = (props: Props) => {
                 <Next next={courseInfo.next} />
                 </>
                 ) : (
-                    <img src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=790b76115d22808b5a64535445306a6d&rid=giphy.gif" />
+                    <img alt="Loading..." src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=790b76115d22808b5a64535445306a6d&rid=giphy.gif" />
                 )
             }
         </section>
     );
 }
+
+
 
 export default ClassInfo;
