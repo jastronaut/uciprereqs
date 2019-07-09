@@ -5,6 +5,7 @@ import CourseList from './components/CourseList';
 import DeptList, { DEPTS } from './components/DeptList';
 import CourseInfo from './components/CourseInfo';
 import History from './components/History';
+import HistoryList from './helpers/HistoryList';
 import './App.css';
 
 interface Props extends RouteComponentProps {}
@@ -12,10 +13,8 @@ interface State {
 	curDept: string;
 	curCourse: string;
 	courseList: Array<string>;
-	history: Array<string>;
+	history: HistoryList;
 }
-
-const NUM_HISTORY = 3;
 
 class App extends React.Component<Props, State> {
 
@@ -25,7 +24,7 @@ class App extends React.Component<Props, State> {
 			curDept: '',
 			curCourse: '',
 			courseList: [],
-			history: [],
+			history: new HistoryList(),
 		}
 
 	}
@@ -61,17 +60,8 @@ class App extends React.Component<Props, State> {
 	}
 
 	selectClass(newClass: string, pushHist=true) {
-		let history = this.state.history;
-		const toAdd = this.state.curDept + " " + newClass;
-		const indexCourse = history.indexOf(toAdd);
-		if (indexCourse === -1) {
-			history.unshift(toAdd);
-			if (history.length > NUM_HISTORY)
-				history.pop();
-		} else {
-			history = (history.splice(0, indexCourse)).concat(history.splice(indexCourse + 1, history.length));
-			history.unshift(toAdd);
-		}
+		const history = this.state.history;
+		history.add(this.state.curDept + " " + newClass);
 		pushHist && this.props.history.push(`/${this.state.curDept}/${newClass}`);
 		this.setState({curCourse: newClass, history: history});
 	}
@@ -135,7 +125,7 @@ class App extends React.Component<Props, State> {
 					{
 						this.displayCourseList()
 					}
-					<History history={this.state.history} clickHistory={this.onClickHistory} />
+					<History history={this.state.history.all()} clickHistory={this.onClickHistory} />
 				</div>
 			<div className="column">
 				{
