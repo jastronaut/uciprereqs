@@ -18,13 +18,11 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
     } = props;
     const [info, setCourseInfo] = useState<InfoType | null>(null);
     useEffect(() => {
-        console.log(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${dept}&selectedNum=${num}`);
-        fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_course_info/?selectedDept=${dept}&selectedNum=${num}`)
+        fetch(`http://127.0.0.1:8000/departments/${dept}/courses/${num}`)
             .then(response => response.json())
             .then(body => setCourseInfo(body));
     }, [dept, num]);
     
-
     return (
         <section>
             {
@@ -42,7 +40,7 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
                         }
                     </div>
                 </article>
-                <Prereqs allPrereqs={info.prereqs} />
+                <Prereqs prereqs={info.prereqs} />
                 <Listing listing={info.listing} />
                 <MajorReqs reqs={info.requirements} />
                 <br />
