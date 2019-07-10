@@ -41,13 +41,16 @@ class App extends React.Component<Props, State> {
 	}
 
 	getCourseList(theDept: string) {
-		fetch(`http://apps.jasdelgado.com/uciprereqs/ajax/show_courses/?selectedDept=${theDept}`)
-			.then((response) =>
-				response.json()
-			).then((jsonRes) => {
-				//@ts-ignore
+		fetch(`http://127.0.0.1:8000/departments/${theDept}`)
+			.then(response => {
+				if (response.ok)
+					return response.json();
+				else
+					throw new Error('bad department');
+			}).then(jsonRes => {
 				this.setState({courseList: jsonRes.courses})
-			});
+			}).catch(err => console.log(err)
+			);
 	}
 
 	renderCourseList() {
