@@ -1,6 +1,6 @@
 export interface CourseInfo {
     title: string;
-    prereqs: Array<string>;
+    prereqs: Array< { [title: string] : string} | string>;
     desc: string;
     requirements: { [title: string] : Array<string>};
     listing: { [title: string] : Array<string> };
