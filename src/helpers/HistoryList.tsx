@@ -1,27 +1,16 @@
 const MAX_HIST = 4;
 
-class HistoryList {
-    history: Array<string>
-    constructor() {
-        this.history = [];
+const addCourseHistory = (hist: Array<string>, course: string) => {
+    let history = hist;
+    const index = history.indexOf(course);
+    if (index < 0) {
+        history.unshift(course);
+        if (history.length > MAX_HIST)
+            history.pop();
+    } else {
+        history = history.splice(0, index).concat(history.splice(index + 1, history.length));
     }
+    return history;
+}
 
-    all() {
-        return this.history;
-    }
-
-    add = (course: string) => {
-        const index = this.history.indexOf(course);
-        if (index < 0) {
-            this.history.unshift(course);
-            if (this.history.length > MAX_HIST)
-                this.history.pop();
-        } else {
-            this.history = this.history.splice(0, index).concat(this.history.splice(index + 1, this.history.length));
-        }
-        return this;
-    }
-
-};
-
-export default HistoryList;
+export default addCourseHistory
