@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	margin: 0 0;
+}
+
+h1, h2, h3 {
+	font-family: 'Montserrat', Helvetica, sans-serif;
+}
+
+h1 {
+	font-weight: 700;
+}
+
 #coursebadge h1 {
 	display: inline;
 }
