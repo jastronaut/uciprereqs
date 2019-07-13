@@ -6,7 +6,7 @@ import DeptList, { DEPTS } from './components/DeptList';
 import CourseInfo from './components/CourseInfo';
 import History from './components/History';
 import addCourseHistory from './helpers/HistoryList';
-import './App.css';
+import { GridContainer, SideBar, MainContent } from './styles/Grid';
 
 interface Props extends RouteComponentProps {}
 
@@ -21,17 +21,21 @@ const App: React.FC<Props> = (props: Props) => {
 
 	// https://adamrackis.dev/state-and-use-reducer/
 	useEffect(() => {
+		console.log('useeffect 23');
 		document.title = "UCI Prereqs";
 		let [pathDept, pathCourse=''] = history.location.pathname.split('/').splice(1);
 		(pathDept !== '') && setDept(pathDept);
 		(pathCourse !== '') && setCourse(pathCourse);
-		setPushHistory(false);
+		setPushHistory(true);
 	}, []);
 
 	useEffect(() => {
-		pushHistory && history.push(`/${dept}`);
-		getCourseList(dept);
-	}, [dept, course, courseList, history, pushHistory]);
+		console.log('useeffect 31');
+		if (dept !== '') {
+			pushHistory && history.push(`/${dept}`);
+			getCourseList(dept);
+		}
+	}, [dept]);
 
 	const getCourseList = (theDept: string) => {
 		fetch(`http://127.0.0.1:8000/departments/${theDept}`)
@@ -42,7 +46,7 @@ const App: React.FC<Props> = (props: Props) => {
 					throw new Error('bad department');
 			}).then(jsonRes => {
 				setCourseList(jsonRes.courses);
-			}).catch(err => console.log(err)
+			}).catch(err => null
 			);
 	}
 
@@ -52,9 +56,10 @@ const App: React.FC<Props> = (props: Props) => {
 	}
 
 	useEffect(() => {
+		console.log('useeffect 57');
 		setHistList(addCourseHistory(histList, dept + ' ' + course));
 		pushHistory && history.push(`/${dept}/${course}`);
-	}, [course, histList, history, pushHistory]);
+	}, [histList, dept, course]);
 
 	const onSelectCourse = (e: React.FormEvent<EventTarget>) => {
 		let target = e.target as HTMLSelectElement;
@@ -77,8 +82,8 @@ const App: React.FC<Props> = (props: Props) => {
 	}
 	
 		return (
-			<div className="columns">
-				<div className={`column is-one-quarter`}>
+			<GridContainer>
+				<SideBar>
 					<DeptList
 						onSelect={onSelectDept}
 						selectedDept={dept}
@@ -88,8 +93,8 @@ const App: React.FC<Props> = (props: Props) => {
 						displayCourseList()
 					}
 					<History history={histList} clickHistory={onClickHistory} />
-				</div>
-			<div className="column">
+				</SideBar>
+			<MainContent>
 				<Switch>
 					<Route path="/:dept/:num" render={({match}) => (
 						<CourseInfo
@@ -106,8 +111,8 @@ const App: React.FC<Props> = (props: Props) => {
 						: null
 					)} />
 				</Switch>
-			</div>
-			</div>
+			</MainContent>
+			</GridContainer>
 		);
 }
 
