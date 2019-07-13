@@ -1,7 +1,9 @@
 import React from 'react';
+import { Select, InputArea, Label } from '../../styles/Form';
 
 export const DEPTS = [
     'CS',
+    'ICS',
     'INF',
 ];
 
@@ -20,13 +22,13 @@ const DeptList: React.FC<Props> = (props: Props) => {
     const depts = DEPTS.map((dept) => renderDepts(dept));
 
     return (
-        <>
-        <label htmlFor="selectDept">Select Department</label><br />
-        <select onChange={(e) => onSelect(e)} value={selectedDept} >
+        <InputArea>
+        <Label htmlFor="selectDept">Select Department</Label><br />
+        <Select onChange={(e) => onSelect(e)} value={selectedDept} >
             <option value="" disabled={true}>Departments</option>
             { depts }
-        </select>
-        </>
+        </Select>
+        </InputArea>
     );
 }
 
