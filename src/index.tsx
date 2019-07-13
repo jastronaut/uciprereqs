@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import App from './App';
+import UCIPrereqs from './UCIPrereqs';
+import { Header, HeaderGradient } from './styles/Layout';
+import { PageTitle } from './styles/Type';
 // import * as serviceWorker from './serviceWorker';
 
+interface MainProps {
+    title: string;
+    subtitle?: string;
+}
+
+const Main: React.FC<MainProps> = (props: MainProps) => (
+        <Header>
+            <HeaderGradient>
+            <PageTitle>{props.title}</PageTitle>
+            </HeaderGradient>
+        </Header>
+);
+
 ReactDOM.render(
-    <BrowserRouter><App /></BrowserRouter>,
+    <BrowserRouter><Main title="UCI Prereqs" /><UCIPrereqs /></BrowserRouter>,
     document.getElementById('root')
 );
 
