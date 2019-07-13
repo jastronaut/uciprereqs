@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import { UCIGold } from '../../styles/Colors';
 
-export const CourseBadge = styled.div`
-    > h1 {
-        display: inline;
-    }
+export const Title = styled.span`
+    margin-left: 1rem;
+    color: ${UCIGold};
 `;

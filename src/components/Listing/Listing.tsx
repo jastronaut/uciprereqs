@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, CardDeck } from '../../styles/Specials';
 import { CourseInfo } from '../../Interfaces';
 
 interface Props {
@@ -7,21 +8,16 @@ interface Props {
 
 const renderQuarter = (quarter: string, professors: Array<string>) => {
     return (
-        <div className={`column quarterbox half`}>
-            <div className="message-header">
-                <p>{quarter}</p>
-            </div>
-            <div className={`message-body quartercontent`}>
-                {professors.map((prof) => (<div key={prof} className="professor-listing">{prof}</div>))}
-            </div>
-        </div>
+        <Card title={quarter}>
+            {professors.map((prof) => (<div key={prof} className="professor-listing">{prof}</div>))}
+        </Card>
     );
 }
 
 const Listing : React.FC<Props> = (props: Props) => {
     const { listing } = props;
     return (
-        <div className={`listing-row columns`}>
+        <CardDeck>
             {
                 (listing.Fall) && renderQuarter("Fall", listing.Fall)
             }
@@ -33,7 +29,7 @@ const Listing : React.FC<Props> = (props: Props) => {
             {
                 (listing.Spring) && renderQuarter("Winter", listing.Spring)
             }
-        </div>
+        </CardDeck>
     );
 }
 

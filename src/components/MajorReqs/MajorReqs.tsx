@@ -1,4 +1,6 @@
 import React from 'react';
+import { SectionHeader } from '../../styles/Type';
+import { Card, CardDeck } from '../../styles/Specials';
 import { CourseInfo } from '../../Interfaces';
 
 interface Props {
@@ -13,17 +15,12 @@ interface MajorProps {
 const Major: React.FC<MajorProps> = (props: MajorProps) => {
     const { major, specs } = props;
     return (
-        <>
-            <h4 className={`title is-4`}>{major}</h4>
-            <table className="table">
-            <tbody>
+        <Card title={major}>
             {
                 (specs) ? 
-                specs.map((spec: string) => (<tr key={spec}><td>{spec}</td></tr>)) : null
+                specs.map((spec: string) => (<p key={spec}>{spec}</p>)) : null
             }
-            </tbody>
-            </table>
-        </>
+        </Card>
     );
 }
 
@@ -40,8 +37,10 @@ const MajorReqs: React.FC<Props> = (props: Props) => {
     if (allSpecs.length > 0) {
         return (
             <div>
-                <h3 className={`title is-3`}>Major Requirements Filled</h3>
-                {allSpecs}
+                <SectionHeader>Major Requirements Filled</SectionHeader>
+                <CardDeck>
+                    {allSpecs}
+                </CardDeck>
             </div>
         );
     }

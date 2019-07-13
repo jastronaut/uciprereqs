@@ -3,7 +3,9 @@ import Prereqs from '../Prereqs';
 import Listing from '../Listing';
 import MajorReqs from '../MajorReqs';
 import Next from '../Next';
-import { CourseBadge } from './styles';
+import { Heading, Text } from '../../styles/Type';
+import { Badge } from '../../styles/Specials';
+import { Title } from './styles';
 import { CourseInfo as InfoType } from '../../Interfaces';
 
 interface Props {
@@ -28,22 +30,18 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
             {
                 (info) ? (
                 <>
-                <CourseBadge>
-                <h1 className={`title is-2`}>{dept} </h1>
-                <h1 className={`title is-2`}>{num}</h1>
-                </CourseBadge>
-                <h3 className={`subtitle is-3 has-text-gray`}>{info.title}</h3>
-                <article className={`message desc`}>
-                    <div className={`message-body desc`}>
-                        {
-                            info.desc ? info.desc : "(No description provided)"
-                        }
-                    </div>
-                </article>
+                <Heading>
+                <Badge>{dept + ' ' + num}</Badge>
+                <Title>{info.title}</Title>
+                </Heading>
+               <Text>
+                    {
+                        info.desc ? info.desc : "(No description provided)"
+                    }
+                </Text>
                 <Prereqs prereqs={info.prereqs} />
                 <Listing listing={info.listing} />
                 <MajorReqs reqs={info.requirements} />
-                <br />
                 <Next next={info.next} />
                 </>
                 ) : (

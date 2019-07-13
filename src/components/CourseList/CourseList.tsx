@@ -1,4 +1,5 @@
 import React from 'react';
+import { Select, InputArea, Label } from '../../styles/Form';
 
 interface Props {
     classes: Array<string>;
@@ -18,14 +19,14 @@ const CourseList: React.FC<Props> = (props: Props) => {
 	}
 
     return (
-        <>
-            <label htmlFor="classlist">Select Class</label>
+        <InputArea>
+            <Label htmlFor="classlist">Select Class</Label>
             <br />
-            <select onChange={(e) => onSelect(e)} value={selectedCourse}>
+            <Select onChange={(e) => onSelect(e)} value={selectedCourse}>
                 <option value="" disabled={true}>Course</option>
                 {renderCourseList()}
-            </select>
-        </>
+            </Select>
+        </InputArea>
     );
 };
 
