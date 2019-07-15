@@ -1,0 +1,1 @@
+export const transition = `transition: 0.2s all ease-in`;

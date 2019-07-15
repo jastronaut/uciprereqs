@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import React from 'react';
 import { UCIGold, UCBlue } from './Colors';
 import { Box } from './Grid';
+import { transition } from './Animation';
+
+const borderRadius = '0.5rem';
 
 interface BadgeProps {
     bgColor?: string;
@@ -12,11 +15,11 @@ export const Badge = styled.div<BadgeProps>`
     background-color: ${props => props.bgColor ? props.bgColor : UCIGold};
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
-    transition: 0.2s all ease-in;
+    ${transition};
 
     :hover {
         opacity: 0.8;
-        transition: 0.2s all ease-in;
+        ${transition};
     }
 `;
 
@@ -26,8 +29,14 @@ interface CardColorProps {
 
 const CardContainer = styled(Box)`
     margin: 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: ${borderRadius};
     box-shadow: 5px 5px 8px #dededede;
+    ${transition};
+
+    :hover {
+        box-shadow: 7px 7px 8px #ccc;
+        ${transition};
+    }
 `;
 
 const CardHeader = styled.h3<CardColorProps>`
@@ -38,16 +47,16 @@ const CardHeader = styled.h3<CardColorProps>`
     padding: 0.5rem 0;
     text-align: center;
     border-bottom: none;
-    border-top-right-radius: 0.75rem;
-    border-top-left-radius: 0.75rem;
+    border-top-right-radius: ${borderRadius};
+    border-top-left-radius: ${borderRadius};
 `;
 
     // border: 1px solid lightgray;
 
 const CardBody = styled.div`
     padding: 1rem;
-    border-bottom-right-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: ${borderRadius};
+    border-bottom-left-radius: ${borderRadius};
     border-top: none;
 `;
 
