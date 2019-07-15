@@ -1,6 +1,7 @@
 import React from 'react';
 import { SectionHeader } from '../../styles/Type';
 import { Card, CardDeck } from '../../styles/Specials';
+import { List, ListItem } from '../../styles/Elements';
 import { CourseInfo } from '../../Interfaces';
 
 interface Props {
@@ -16,10 +17,12 @@ const Major: React.FC<MajorProps> = (props: MajorProps) => {
     const { major, specs } = props;
     return (
         <Card title={major}>
-            {
-                (specs) ? 
-                specs.map((spec: string) => (<p key={spec}>{spec}</p>)) : null
-            }
+            <List>
+                {
+                    (specs) ? 
+                    specs.map((spec: string) => (<ListItem key={spec}>{spec}</ListItem>)) : null
+                }
+            </List>
         </Card>
     );
 }

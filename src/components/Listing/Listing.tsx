@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardDeck } from '../../styles/Specials';
+import { List, ListItem } from '../../styles/Elements';
 import { CourseInfo } from '../../Interfaces';
 
 interface Props {
@@ -9,7 +10,9 @@ interface Props {
 const renderQuarter = (quarter: string, professors: Array<string>) => {
     return (
         <Card title={quarter}>
-            {professors.map((prof) => (<div key={prof} className="professor-listing">{prof}</div>))}
+            <List>
+                {professors.map((prof) => (<ListItem key={prof}>{prof}</ListItem>))}
+            </List>
         </Card>
     );
 }
