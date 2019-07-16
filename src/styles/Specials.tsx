@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import { UCIGold, UCBlue } from './Colors';
 import { Box } from './Grid';
-import { transition } from './Animation';
-
-const borderRadius = '0.5rem';
+import { transition, borderRadius } from './Constants';
 
 interface BadgeProps {
     bgColor?: string;
