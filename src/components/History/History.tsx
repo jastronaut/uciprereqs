@@ -1,4 +1,6 @@
 import React from 'react';
+import { SmallHeader } from '../../styles/Type';
+import { HistoryBox } from './styles';
 
 interface Props {
     history?: Array<string>;
@@ -25,8 +27,8 @@ const History: React.FC<Props> = (props: Props) => {
     // non-null assertion operator !
     return (
         (history === null || history!.length === 0) ? null : (
-        <div>
-            <label htmlFor="history">Recently Viewed</label>
+        <HistoryBox>
+            <SmallHeader>Recently Viewed</SmallHeader>
             <table className="table">
                 <tbody>
                     {
@@ -36,7 +38,7 @@ const History: React.FC<Props> = (props: Props) => {
                     }
                 </tbody>
             </table>
-        </div>
+        </HistoryBox>
         )
     );
 
