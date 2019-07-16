@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import UCIPrereqs from './UCIPrereqs';
-import { Header, HeaderGradient } from './styles/Layout';
+import { Header, HeaderGradient, Container } from './styles/Layout';
 import { PageTitle } from './styles/Type';
 // import * as serviceWorker from './serviceWorker';
 
@@ -20,7 +20,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => (
 );
 
 ReactDOM.render(
-    <BrowserRouter><Main title="UCI Prereqs" /><UCIPrereqs /></BrowserRouter>,
+    <BrowserRouter><Main title="UCI Prereqs" /><Container><UCIPrereqs /></Container></BrowserRouter>,
     document.getElementById('root')
 );
 

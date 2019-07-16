@@ -12,3 +12,11 @@ export const HeaderGradient = styled.div`
     background: linear-gradient(transparent, rgba(0, 0, 0, 1));
     margin: 0;
 `;
+
+export const Container = styled.main`
+    margin: auto 5rem;
+
+    @media screen and (max-width: 850px) {
+        margin: auto 3rem;
+    }
+`;
