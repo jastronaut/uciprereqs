@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader } from '../../styles/Type';
+import { SectionHeader, Text } from '../../styles/Type';
 import { CourseInfo } from '../../Interfaces';
 
 interface Props {
@@ -33,17 +33,20 @@ const Prereqs: React.FC<Props> = (props: Props) => {
     return (
         <div className={`box prereqs`}>
             <SectionHeader>Prerequisites</SectionHeader>
-            <table className={`table is-hoverable`}>
-                <tbody>
-                    {
-                        (prereqs.length < 1) ? (
-                            renderPrereqs(["No Prerequisites for this class! ✨"])
-                        ) : (
-                            renderPrereqs(prereqs)
-                        )
-                    }
-                </tbody>
-            </table>
+            {
+                (prereqs.length < 1) ? (
+                    <Text indented>No Prerequisites for this class! ✨</Text>
+                ) : (
+                    <table className={`table is-hoverable`}>
+                        <tbody>
+                            {
+                                renderPrereqs(prereqs)
+                            }
+                        </tbody>
+                    </table>
+                )
+            }
+
         </div>
     );
 }
