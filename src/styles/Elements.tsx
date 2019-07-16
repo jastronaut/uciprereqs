@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { transition } from './Animation';
+import { transition, borderRadius } from './Constants';
 
 export const ListItem = styled.li`
     padding-left: 0.5rem;
@@ -9,6 +9,7 @@ export const ListItem = styled.li`
 
     :hover {
         background: lightgrey;
+        border-radius: ${borderRadius};
         ${transition};
     }
 
