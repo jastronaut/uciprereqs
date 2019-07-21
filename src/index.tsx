@@ -1,26 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import UCIPrereqs from './UCIPrereqs';
+import Professors from './professors';
 import { Header, HeaderGradient, Container } from './styles/Layout';
 import { PageTitle } from './styles/Type';
 // import * as serviceWorker from './serviceWorker';
 
 interface MainProps {
-    title: string;
     subtitle?: string;
 }
 
 const Main: React.FC<MainProps> = (props: MainProps) => (
+    <BrowserRouter>
         <Header>
             <HeaderGradient>
-            <PageTitle>{props.title}</PageTitle>
+            <PageTitle>UCI Prereqs</PageTitle>
             </HeaderGradient>
         </Header>
+        <Container>
+            <Switch>
+                <Route path="/prereqs" component={UCIPrereqs} />
+                <Route path="/professor" component={Professors} />
+            </Switch>
+        </Container>
+    </BrowserRouter>
 );
 
 ReactDOM.render(
-    <BrowserRouter><Main title="UCI Prereqs" /><Container><UCIPrereqs /></Container></BrowserRouter>,
+    <Main />,
     document.getElementById('root')
 );
 
