@@ -36,7 +36,7 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
                 </Heading>
                <Text>
                     {
-                        info.desc ? info.desc : "(No description provided)"
+                        info.desc ? info.desc : "No description found! 😰"
                     }
                 </Text>
                 <Prereqs prereqs={info.prereqs} />
