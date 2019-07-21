@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Route, Switch} from 'react-router-dom';
 import CourseList from './components/CourseList';
@@ -10,6 +10,14 @@ import { GridContainer, SideBar, MainContent } from './styles/Grid';
 
 interface Props extends RouteComponentProps {}
 
+const usePrevious = (dept: string) => {
+	const ref = useRef<string>();
+	useEffect(() => {
+		ref.current = dept;
+	});
+	return ref.current;
+}
+
 const App: React.FC<Props> = (props: Props) => {
 
     const { history } = props;
@@ -19,11 +27,13 @@ const App: React.FC<Props> = (props: Props) => {
 	const [ courseList, setCourseList ] = useState<Array<string>>([]);
 	const [ histList, setHistList ] = useState<Array<string>>([]);
 
+	const prevDept = usePrevious(dept);
+
 	// https://adamrackis.dev/state-and-use-reducer/
 	useEffect(() => {
 		console.log('useeffect 23');
 		document.title = "UCI Prereqs";
-		let [pathDept, pathCourse=''] = history.location.pathname.split('/').splice(1);
+		let [pathDept, pathCourse=''] = history.location.pathname.split('/').splice(2);
 		(pathDept !== '') && setDept(pathDept);
 		(pathCourse !== '') && setCourse(pathCourse);
 		setPushHistory(true);
@@ -32,12 +42,14 @@ const App: React.FC<Props> = (props: Props) => {
 	useEffect(() => {
 		console.log('useeffect 31');
 		if (dept !== '') {
-			pushHistory && history.push(`/${dept}`);
+			pushHistory && history.push(`/prereqs/${dept}`);
 			getCourseList(dept);
 		}
 	}, [dept]);
 
 	const getCourseList = (theDept: string) => {
+		if (theDept !== prevDept && prevDept !== '')
+			setCourse('');
 		fetch(`http://127.0.0.1:8000/departments/${theDept}`)
 			.then(response => {
 				if (response.ok)
@@ -58,7 +70,7 @@ const App: React.FC<Props> = (props: Props) => {
 	useEffect(() => {
 		console.log('useeffect 57');
 		setHistList(addCourseHistory(histList, dept + ' ' + course));
-		pushHistory && history.push(`/${dept}/${course}`);
+		pushHistory && history.push(`/prereqs/${dept}/${course}`);
 	}, [histList, dept, course]);
 
 	const onSelectCourse = (e: React.FormEvent<EventTarget>) => {
@@ -96,13 +108,13 @@ const App: React.FC<Props> = (props: Props) => {
 				</SideBar>
 			<MainContent>
 				<Switch>
-					<Route path="/:dept/:num" render={({match}) => (
+					<Route path="prereqs/:dept/:num" render={({match}) => (
 						<CourseInfo
 							dept={match.params.dept}
 							num={match.params.num}
 							/>
 					)} />
-					<Route path="/" render={() => (
+					<Route path="/prereqs" render={() => (
 						course !== '' ?
 						<CourseInfo
 							dept={dept}
