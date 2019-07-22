@@ -6,7 +6,7 @@ import DeptList, { DEPTS } from './components/DeptList';
 import CourseInfo from './components/CourseInfo';
 import History from './components/History';
 import addCourseHistory from './helpers/HistoryList';
-import { GridContainer, SideBar, MainContent } from './styles/Grid';
+import { GridContainer, SideBar, MainContent } from '../styles/Grid';
 
 interface Props extends RouteComponentProps {}
 
@@ -31,7 +31,6 @@ const App: React.FC<Props> = (props: Props) => {
 
 	// https://adamrackis.dev/state-and-use-reducer/
 	useEffect(() => {
-		console.log('useeffect 23');
 		document.title = "UCI Prereqs";
 		let [pathDept, pathCourse=''] = history.location.pathname.split('/').splice(2);
 		(pathDept !== '') && setDept(pathDept);
@@ -40,7 +39,6 @@ const App: React.FC<Props> = (props: Props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log('useeffect 31');
 		if (dept !== '') {
 			pushHistory && history.push(`/prereqs/${dept}`);
 			getCourseList(dept);
@@ -68,7 +66,6 @@ const App: React.FC<Props> = (props: Props) => {
 	}
 
 	useEffect(() => {
-		console.log('useeffect 57');
 		setHistList(addCourseHistory(histList, dept + ' ' + course));
 		pushHistory && history.push(`/prereqs/${dept}/${course}`);
 	}, [histList, dept, course]);

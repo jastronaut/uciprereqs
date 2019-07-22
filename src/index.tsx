@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import UCIPrereqs from './UCIPrereqs';
+import UCIPrereqs from './uciprereqs';
 import Professors from './professors';
 import { Header, HeaderGradient, Container } from './styles/Layout';
 import { PageTitle } from './styles/Type';
