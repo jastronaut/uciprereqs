@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import React from 'react';
-import { UCIGold, UCBlue } from './Colors';
-import { Box } from './Grid';
-import { transition, borderRadius } from './Constants';
+import { UCIGold, UCBlue } from './../Colors';
+import { Box } from './../Grid';
+import { transition, borderRadius } from './../Constants';
 
 interface BadgeProps {
     bgColor?: string;
@@ -20,6 +20,21 @@ export const Badge = styled.div<BadgeProps>`
         ${transition};
     }
 `;
+
+interface TagProps extends BadgeProps {
+    text: string;
+    color: string;
+    icon?: string;
+}
+
+export const Tag: React.FC<TagProps> = (props: TagProps) => {
+    const { text, color } = props;
+    return (
+        <Badge bgColor={color}>
+            {text}
+        </Badge>
+    );
+}
 
 interface CardColorProps {
     headerColor?: string;
