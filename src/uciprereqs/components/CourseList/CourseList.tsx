@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, InputArea, Label } from '../../styles/Form';
+import { Select, InputArea, Label } from '../../../styles/Form';
 
 interface Props {
     classes: Array<string>;

@@ -3,10 +3,10 @@ import Prereqs from '../Prereqs';
 import Listing from '../Listing';
 import MajorReqs from '../MajorReqs';
 import Next from '../Next';
-import { Heading, Text } from '../../styles/Type';
-import { Badge } from '../../styles/Specials';
+import { Heading, Text } from '../../../styles/Type';
+import { Badge } from '../../../styles/Specials';
 import { Title } from './styles';
-import { CourseInfo as InfoType } from '../../Interfaces';
+import { CourseInfo as InfoType } from '../../../Interfaces';
 
 interface Props {
     dept: string;

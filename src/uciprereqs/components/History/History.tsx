@@ -1,5 +1,5 @@
 import React from 'react';
-import { SmallHeader } from '../../styles/Type';
+import { SmallHeader } from '../../../styles/Type';
 import { HistoryBox } from './styles';
 
 interface Props {

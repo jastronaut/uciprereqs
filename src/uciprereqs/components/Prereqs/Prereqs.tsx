@@ -1,6 +1,6 @@
 import React from 'react';
-import { SectionHeader, Text } from '../../styles/Type';
-import { CourseInfo } from '../../Interfaces';
+import { SectionHeader, Text } from '../../../styles/Type';
+import { CourseInfo } from '../../../Interfaces';
 
 interface Props {
     prereqs: CourseInfo['prereqs'];

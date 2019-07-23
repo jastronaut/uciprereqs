@@ -1,8 +1,8 @@
 import React from 'react';
-import { SectionHeader } from '../../styles/Type';
-import { Card, CardDeck } from '../../styles/Specials';
-import { List, ListItem } from '../../styles/Elements';
-import { CourseInfo } from '../../Interfaces';
+import { SectionHeader } from '../../../styles/Type';
+import { Card, CardDeck } from '../../../styles/Specials';
+import { List, ListItem } from '../../../styles/Elements';
+import { CourseInfo } from '../../../Interfaces';
 
 interface Props {
     reqs: CourseInfo['requirements'];
