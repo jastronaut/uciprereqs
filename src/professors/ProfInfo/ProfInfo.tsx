@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Heading, Text } from '../../styles/Type';
 import { Badge } from '../../styles/Specials';
-import Listing from '../../components/Listing';
+import Listing from '../../uciprereqs/components/Listing';
 
 interface Props {
     prof: string;

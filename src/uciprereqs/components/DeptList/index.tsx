@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, InputArea, Label } from '../../styles/Form';
+import { Select, InputArea, Label } from '../../../styles/Form';
 
 export const DEPTS = [
     'CS',
