@@ -14,7 +14,7 @@ export const find_prereq_space = (c: number, spaces: Array<Array<string>>) => {
         c--;
     }
 
-    return [-1, -1];
+    return [0, 0];
 };
 
 export const find_next_space = (c: number, r: number, spaces: Array<Array<string>>) => {
@@ -27,7 +27,7 @@ export const find_next_space = (c: number, r: number, spaces: Array<Array<string
             return [spaces[c].length, c];
         c++;
     }
-    return [-1, -1];
+    return [0, 0];
 }
 
 /**
@@ -42,13 +42,13 @@ export const get_node_coords = (r: number, c: number) => (
 export const shift_fwd = (spaces: Array<Array<string>>, allNodes: { [name: string]: VARS.Node }, canvas: any) => {
     for (const col of spaces) {
         col.forEach(cur => {
-            allNodes.cur.c++;
-            const newX = allNodes.cur.x + VARS.nodew;
-            allNodes.cur.label.set({left: newX});
-            allNodes.cur.rect.set({left: newX});
-            allNodes.cur.x = newX;
-            allNodes.c.label.setCoords();
-            allNodes.c.rect.setCooords();
+            allNodes[cur].c++;
+            const newX = allNodes[cur].x + VARS.nodew;
+            allNodes[cur].label.set({left: newX});
+            allNodes[cur].rect.set({left: newX});
+            allNodes[cur].x = newX;
+            allNodes[cur].label.setCoords();
+            allNodes[cur].rect.setCoords();
         });
     }
     spaces.unshift([]);

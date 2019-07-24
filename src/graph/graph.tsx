@@ -1,7 +1,7 @@
 import * as COLOR from './colors';
 import * as VARS from './constants';
 import * as SPACES from './spacehelpers';
-import { fabric } from 'react-fabricjs';
+const fabric = require('fabric').fabric;
 
 const allNodes: { [name: string]: VARS.Node } = {};
 const spaces: Array<Array<string>> = [[], [], [], []];
@@ -23,7 +23,7 @@ const create_rect = (x: number, y: number, color: string) => (
 );
 
 const create_label = (x: number, y: number, title: string) => (
-    new fabric.TextBox(title, {
+    new fabric.Textbox(title, {
         left: x,
         top: y + VARS.rh / 3,
         width: VARS.rw,
@@ -66,13 +66,13 @@ const create_node = (inputs: VARS.NodeInit, canvas: any) => {
     canvas.renderAll();
     canvas.sendToBack(node.rect);
     canvas.renderAll();
-    allNodes.title = node;
+    allNodes[inputs.title] = node;
 }
 
-const node_exists = (node: string) => allNodes.node;
+const node_exists = (node: string) => allNodes[node];
 
 function add_prereq (curClass: string, toAdd: string, canvas: any) {
-    const cur = allNodes.curClass;
+    const cur = allNodes[curClass];
     cur.prereqClasses.push(toAdd);
 
     if (!node_exists(toAdd)) {
@@ -84,7 +84,7 @@ function add_prereq (curClass: string, toAdd: string, canvas: any) {
         spaces[c].push(toAdd);
     }
 
-    const prereq = allNodes.toAdd;
+    const prereq = allNodes[toAdd];
 
     prereq.nextClasses.push(cur.title);
     prereq.lines.curClass = create_line(prereq.x, prereq.y, cur.x, cur.y);
@@ -97,6 +97,7 @@ function add_prereq (curClass: string, toAdd: string, canvas: any) {
 function add_orphan (title: string, canvas: any) {
     if (!node_exists(title)) {
         const [r, c] = SPACES.find_next_space(0, 0, spaces);
+        console.log(`r: ${r}, c: ${c}`);
         const [x, y] = SPACES.get_node_coords(r, c);
         spaces[c].push(title);
         create_node({x, y, r, c, color, title}, canvas);
@@ -105,9 +106,10 @@ function add_orphan (title: string, canvas: any) {
 
 function add_goal (curClass: string, goal: string, prereqsDirectory: { [name: string] : Array<string> }, canvas: any) {
     add_orphan(curClass, canvas);
-    if (!prereqsDirectory.curClass || prereqsDirectory.curClass.length === 0) return;
+    if (!prereqsDirectory[curClass] || prereqsDirectory[curClass].length === 0) return;
 
-    prereqsDirectory.curClass.forEach(prereq => {
+    prereqsDirectory[curClass].forEach(prereq => {
+        console.log(`adding ${curClass}`);
         add_prereq(curClass, prereq, canvas);
         add_goal(prereq, goal, prereqsDirectory, canvas);
     });
