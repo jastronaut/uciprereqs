@@ -1,0 +1,13 @@
+{
+    "nodes": [
+        {"id": "CS 134", "group": 1},
+        {"id": "CS 121", "group": 2},
+        {"id": "CS 131", "group": 2},
+        {"id": "CS 141", "group": 2}
+    ],
+    "links": [
+        {"source": "CS 141", "target": "CS 134"},
+        {"source": "CS 131", "target": "CS 134"},
+        {"source": "CS 121", "target": "CS 131"}
+    ]
+}
