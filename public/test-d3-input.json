@@ -1,9 +1,9 @@
 {
     "nodes": [
-        {"id": "CS 134", "group": 1},
-        {"id": "CS 121", "group": 2},
-        {"id": "CS 131", "group": 2},
-        {"id": "CS 141", "group": 2}
+        {"id": "CS 134", "group": 1, "desc": "hello"},
+        {"id": "CS 121", "group": 2, "desc": "hi"},
+        {"id": "CS 131", "group": 3, "desc": "lol"},
+        {"id": "CS 141", "group": 4, "desc": "haha"}
     ],
     "links": [
         {"source": "CS 141", "target": "CS 134"},
