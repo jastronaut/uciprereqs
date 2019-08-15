@@ -4,7 +4,7 @@ import { Select, InputArea, Label } from '../../../styles/Form';
 export const DEPTS = ['CS', 'ICS', 'INF'];
 
 interface Props {
-	onSelect: (...args: any) => any;
+	onSelect: (args: React.FormEvent<EventTarget>) => void;
 	selectedDept?: string;
 }
 

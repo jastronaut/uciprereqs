@@ -2,8 +2,8 @@ import React from 'react';
 import { Select, InputArea, Label } from '../../../styles/Form';
 
 interface Props {
-	classes: Array<string>;
-	onSelect: (...args: any[]) => any;
+	classes: string[];
+	onSelect: (e: React.FormEvent<EventTarget>) => void;
 	selectedCourse: string;
 }
 

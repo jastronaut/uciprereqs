@@ -3,9 +3,9 @@ import { SmallHeader } from '../../../styles/Type';
 import { HistoryBox } from './styles';
 
 interface Props {
-	history?: Array<string>;
+	history?: string[];
 	course?: string;
-	clickHistory: (...args: any[]) => any;
+	clickHistory: (newDept: string, newCourse: string) => void;
 }
 
 const ViewedClass: React.FC<Props> = (props: Props) => {

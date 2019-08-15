@@ -8,8 +8,6 @@ import History from './components/History';
 import addCourseHistory from './helpers/HistoryList';
 import { GridContainer, SideBar, MainContent } from '../styles/Grid';
 
-interface Props extends RouteComponentProps {}
-
 const usePrevious = (dept: string) => {
 	const ref = useRef<string>();
 	useEffect(() => {
@@ -18,33 +16,26 @@ const usePrevious = (dept: string) => {
 	return ref.current;
 };
 
-const App: React.FC<Props> = (props: Props) => {
+const App: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 	const { history } = props;
 	const [dept, setDept] = useState<string>('');
 	const [pushHistory, setPushHistory] = useState<boolean>(false);
 	const [course, setCourse] = useState<string>('');
-	const [courseList, setCourseList] = useState<Array<string>>([]);
-	const [histList, setHistList] = useState<Array<string>>([]);
+	const [courseList, setCourseList] = useState<string[]>([]);
+	const [histList, setHistList] = useState<string[]>([]);
 
 	const prevDept = usePrevious(dept);
 
 	// https://adamrackis.dev/state-and-use-reducer/
 	useEffect(() => {
 		document.title = 'UCI Prereqs';
-		let [pathDept, pathCourse = ''] = history.location.pathname
+		const [pathDept, pathCourse = ''] = history.location.pathname
 			.split('/')
 			.splice(2);
 		pathDept !== '' && setDept(pathDept);
 		pathCourse !== '' && setCourse(pathCourse);
 		setPushHistory(true);
 	}, []);
-
-	useEffect(() => {
-		if (dept !== '') {
-			pushHistory && history.push(`/prereqs/${dept}`);
-			getCourseList(dept);
-		}
-	}, [dept]);
 
 	const getCourseList = (theDept: string) => {
 		if (theDept !== prevDept && prevDept !== '') setCourse('');
@@ -59,8 +50,15 @@ const App: React.FC<Props> = (props: Props) => {
 			.catch(err => null);
 	};
 
+	useEffect(() => {
+		if (dept !== '') {
+			pushHistory && history.push(`/prereqs/${dept}`);
+			getCourseList(dept);
+		}
+	}, [dept]);
+
 	const onSelectDept = (e: React.FormEvent<EventTarget>) => {
-		let target = e.target as HTMLSelectElement;
+		const target = e.target as HTMLSelectElement;
 		setDept(target.value);
 	};
 
@@ -70,7 +68,7 @@ const App: React.FC<Props> = (props: Props) => {
 	}, [histList, dept, course]);
 
 	const onSelectCourse = (e: React.FormEvent<EventTarget>) => {
-		let target = e.target as HTMLSelectElement;
+		const target = e.target as HTMLSelectElement;
 		setCourse(target.value);
 	};
 
@@ -90,11 +88,7 @@ const App: React.FC<Props> = (props: Props) => {
 					/>
 				);
 			} else {
-				return (
-					<p>
-						Please select a valid department.
-					</p>
-				);
+				return <p>Please select a valid department.</p>;
 			}
 		}
 	};

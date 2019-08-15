@@ -1,6 +1,6 @@
 const MAX_HIST = 4;
 
-const addCourseHistory = (hist: Array<string>, course: string) => {
+const addCourseHistory = (hist: string[], course: string) => {
 	let history = hist;
 	const index = history.indexOf(course);
 	if (index < 0) {

@@ -8,11 +8,7 @@ import { Header, HeaderGradient, Container } from './styles/Layout';
 import { PageTitle } from './styles/Type';
 // import * as serviceWorker from './serviceWorker';
 
-interface MainProps {
-	subtitle?: string;
-}
-
-const Main: React.FC<MainProps> = (props: MainProps) => (
+const Main: React.FC = () => (
 	<BrowserRouter>
 		<Header>
 			<HeaderGradient>

@@ -10,7 +10,7 @@ interface Props {
 
 interface MajorProps {
 	major: string;
-	specs: Array<string>;
+	specs: string[];
 }
 
 const Major: React.FC<MajorProps> = (props: MajorProps) => {
@@ -30,9 +30,9 @@ const Major: React.FC<MajorProps> = (props: MajorProps) => {
 
 const MajorReqs: React.FC<Props> = (props: Props) => {
 	const reqs = props.reqs;
-	let allSpecs: Array<JSX.Element> = [];
+	const allSpecs: JSX.Element[] = [];
 
-	for (var major in reqs) {
+	for (const major in reqs) {
 		if (reqs[major].length > 0)
 			allSpecs.push(
 				<Major key={major} major={major} specs={reqs[major]} />

@@ -5,12 +5,12 @@ import ProfList from './ProfList';
 import ProfInfo from './ProfInfo';
 import { GridContainer, SideBar, MainContent } from '../styles/Grid';
 
-interface Props extends RouteComponentProps {}
-
-const ProfessorsApp: React.FC<Props> = (props: Props) => {
+const ProfessorsApp: React.FC<RouteComponentProps> = (
+	props: RouteComponentProps
+) => {
 	const { history } = props;
 	const [prof, setProf] = useState<string>('');
-	const [allProfs, setAllProfs] = useState<Array<string>>([]);
+	const [allProfs, setAllProfs] = useState<string[]>([]);
 
 	useEffect(() => {
 		document.title = 'UCI Professors';
@@ -23,7 +23,7 @@ const ProfessorsApp: React.FC<Props> = (props: Props) => {
 				setAllProfs(jsonRes.professors);
 			})
 			.catch(err => null);
-		let pathProf = history.location.pathname.split('/').splice(1)[1];
+		const pathProf = history.location.pathname.split('/').splice(1)[1];
 		pathProf !== '' && setProf(pathProf);
 	}, []);
 
@@ -32,7 +32,7 @@ const ProfessorsApp: React.FC<Props> = (props: Props) => {
 	}, [prof, history]);
 
 	const onSelectProf = (e: React.FormEvent<EventTarget>) => {
-		let target = e.target as HTMLSelectElement;
+		const target = e.target as HTMLSelectElement;
 		setProf(target.value);
 	};
 

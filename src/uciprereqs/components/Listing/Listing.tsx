@@ -7,7 +7,7 @@ interface Props {
 	listing: CourseInfo['listing'];
 }
 
-const renderQuarter = (quarter: string, professors: Array<string>) => {
+const renderQuarter = (quarter: string, professors: string[]) => {
 	return (
 		<Card title={quarter}>
 			<List>
