@@ -1,4 +1,3 @@
 import styled from 'styled-components';
 
-export const HistoryBox = styled.div`
-`;
+export const HistoryBox = styled.div``;

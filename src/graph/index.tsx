@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { UCBlue, UCIGold } from "../styles/Colors";
+import React, { useState, useEffect } from 'react';
+import { UCBlue, UCIGold } from '../styles/Colors';
 import {
 	ForceGraph2D,
 	CanvasGraphNode,
 	CanvasGraphLink,
-} from "react-force-graph";
+} from 'react-force-graph';
 // import { CourseInfo } from '../Interfaces';
 interface Props {}
 
 const Graph: React.FC<Props> = (props: Props) => {
-    const dept = 'CS';
-    const num = '134';
+	const dept = 'CS';
+	const num = '134';
 	// const [targetCourse, setTargetCourse] = useState<string>("CS 134");
 	const [graphData, setGraphData] = useState<any>({ nodes: [], links: [] });
-    const [hoverLink, setHoverLink] = useState<any>(null);
-    console.log('test');
+	const [hoverLink, setHoverLink] = useState<any>(null);
+	console.log('test');
 
 	useEffect(() => {
-		console.log("starting...");
-        
-        fetch(`http://127.0.0.1:8000/departments/${dept}/courses/${num}`)
-            .then(resp => { console.log(resp.json); return resp.json() })
-            .then(body => setGraphData(body['d3']));
+		console.log('starting...');
+
+		fetch(`http://127.0.0.1:8000/departments/${dept}/courses/${num}`)
+			.then(resp => {
+				console.log(resp.json);
+				return resp.json();
+			})
+			.then(body => setGraphData(body['d3']));
 	}, []);
 
 	const drawNode = (
@@ -41,9 +44,9 @@ const Graph: React.FC<Props> = (props: Props) => {
 			bckgDimensions[0],
 			bckgDimensions[1]
 		);
-		ctx.textAlign = "center";
-		ctx.textBaseline = "middle";
-		ctx.fillStyle = "#fff";
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+		ctx.fillStyle = '#fff';
 		ctx.fillText(label, node.x, node.y);
 	};
 
@@ -54,8 +57,8 @@ const Graph: React.FC<Props> = (props: Props) => {
 	return (
 		<ForceGraph2D
 			graphData={graphData}
-            // dagMode="td"
-            dagMode="radialout"
+			// dagMode="td"
+			dagMode="radialout"
 			nodeAutoColorBy="group"
 			dagLevelDistance={50}
 			linkColor={() => UCIGold}

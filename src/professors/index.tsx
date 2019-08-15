@@ -8,59 +8,64 @@ import { GridContainer, SideBar, MainContent } from '../styles/Grid';
 interface Props extends RouteComponentProps {}
 
 const ProfessorsApp: React.FC<Props> = (props: Props) => {
-    const { history } = props;
-    const [ prof, setProf ] = useState<string>('');
-    const [ allProfs, setAllProfs ] = useState<Array<string>>([]);
+	const { history } = props;
+	const [prof, setProf] = useState<string>('');
+	const [allProfs, setAllProfs] = useState<Array<string>>([]);
 
-    useEffect(() => {
-        document.title = "UCI Professors";
-        fetch(`http://127.0.0.1:8000/all_professors/`)
-        .then(response => {
-            if (response.ok)
-                return response.json();
-            else
-                throw new Error('bad department');
-        }).then(jsonRes => {
-           setAllProfs(jsonRes.professors);
-        }).catch(err => null
-        );
-        let pathProf = history.location.pathname.split('/').splice(1)[1];
-		(pathProf !== '') && setProf(pathProf);
-    }, []);
-    
-    useEffect(() => {
-        prof !== '' && history.push(`/professor/${prof}`);
-    }, [prof, history]);
+	useEffect(() => {
+		document.title = 'UCI Professors';
+		fetch(`http://127.0.0.1:8000/all_professors/`)
+			.then(response => {
+				if (response.ok) return response.json();
+				else throw new Error('bad department');
+			})
+			.then(jsonRes => {
+				setAllProfs(jsonRes.professors);
+			})
+			.catch(err => null);
+		let pathProf = history.location.pathname.split('/').splice(1)[1];
+		pathProf !== '' && setProf(pathProf);
+	}, []);
 
-    const onSelectProf = (e: React.FormEvent<EventTarget>) => {
+	useEffect(() => {
+		prof !== '' && history.push(`/professor/${prof}`);
+	}, [prof, history]);
+
+	const onSelectProf = (e: React.FormEvent<EventTarget>) => {
 		let target = e.target as HTMLSelectElement;
 		setProf(target.value);
-    }
-    
-    return (
-        <GridContainer>
-            <SideBar>
-                <ProfList
-                    allProfs={allProfs}
-                    onSelect={onSelectProf}
-                    selectedProf={prof}
-                />
-            </SideBar>
-            <MainContent>
-                <Switch>
-                <Route path="professor/:prof" render={({match}) => (
-                    <ProfInfo
-                        prof={decodeURIComponent(match.params.prof)}
-                    />
-                )} />
-                <Route path="/professor" render={() => (
-                    prof !== '' ? <ProfInfo prof={prof} /> :"hhh"
-                )} />
-                </Switch>
-            </MainContent>
-        </GridContainer>
-    );
-}
+	};
+
+	return (
+		<GridContainer>
+			<SideBar>
+				<ProfList
+					allProfs={allProfs}
+					onSelect={onSelectProf}
+					selectedProf={prof}
+				/>
+			</SideBar>
+			<MainContent>
+				<Switch>
+					<Route
+						path="professor/:prof"
+						render={({ match }) => (
+							<ProfInfo
+								prof={decodeURIComponent(match.params.prof)}
+							/>
+						)}
+					/>
+					<Route
+						path="/professor"
+						render={() =>
+							prof !== '' ? <ProfInfo prof={prof} /> : 'hhh'
+						}
+					/>
+				</Switch>
+			</MainContent>
+		</GridContainer>
+	);
+};
 
 const Professors = withRouter(ProfessorsApp);
 export default Professors;
