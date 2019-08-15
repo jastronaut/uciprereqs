@@ -1,6 +1,6 @@
 import React from 'react';
 import { SectionHeader } from '../../../styles/Type';
-import { CourseInfo } from '../../../Interfaces';
+import { CourseInfo } from '../../../constants/Interfaces';
 
 interface Props {
 	next: CourseInfo['next'];

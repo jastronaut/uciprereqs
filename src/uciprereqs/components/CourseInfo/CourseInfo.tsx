@@ -6,7 +6,7 @@ import Next from '../Next';
 import { Heading, Text } from '../../../styles/Type';
 import { Badge } from '../../../styles/Specials';
 import { Title } from './styles';
-import { CourseInfo as InfoType } from '../../../Interfaces';
+import { CourseInfo as InfoType } from '../../../constants/Interfaces';
 
 interface Props {
 	dept: string;
@@ -16,6 +16,7 @@ interface Props {
 const CourseInfo: React.FC<Props> = (props: Props) => {
 	const { dept, num } = props;
 	const [info, setCourseInfo] = useState<InfoType | null>(null);
+	
 	useEffect(() => {
 		fetch(`http://127.0.0.1:8000/departments/${dept}/courses/${num}`)
 			.then(response => response.json())

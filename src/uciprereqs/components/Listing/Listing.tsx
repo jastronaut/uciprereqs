@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardDeck } from '../../../styles/Specials';
 import { List, ListItem } from '../../../styles/Elements';
-import { CourseInfo } from '../../../Interfaces';
+import { CourseInfo } from '../../../constants/Interfaces';
 
 interface Props {
 	listing: CourseInfo['listing'];
