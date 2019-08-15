@@ -30,12 +30,12 @@ const renderPrereqs = (prereqs: CourseInfo['prereqs']) =>
 const Prereqs: React.FC<Props> = (props: Props) => {
 	const { prereqs } = props;
 	return (
-		<div className={`box prereqs`}>
+		<div>
 			<SectionHeader>Prerequisites</SectionHeader>
 			{prereqs.length < 1 ? (
 				<Text indented>No Prerequisites for this class! ✨</Text>
 			) : (
-				<table className={`table is-hoverable`}>
+				<table>
 					<tbody>{renderPrereqs(prereqs)}</tbody>
 				</table>
 			)}

@@ -9,10 +9,10 @@ interface Props {
 const Next: React.FC<Props> = (props: Props) => {
 	const { next } = props;
 	return (
-		<div className="box">
+		<div>
 			<SectionHeader>Next classes to take</SectionHeader>
 			{next.length > 0 ? (
-				<table className={`table is-hoverable`}>
+				<table>
 					<tbody>
 						{next.map(course => (
 							<tr key={course}>

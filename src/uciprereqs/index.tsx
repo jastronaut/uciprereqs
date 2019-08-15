@@ -91,7 +91,7 @@ const App: React.FC<Props> = (props: Props) => {
 				);
 			} else {
 				return (
-					<p className="has-text-danger">
+					<p>
 						Please select a valid department.
 					</p>
 				);

@@ -25,7 +25,7 @@ const History: React.FC<Props> = (props: Props) => {
 	return history === null || history!.length === 0 ? null : (
 		<HistoryBox>
 			<SmallHeader>Recently Viewed</SmallHeader>
-			<table className="table">
+			<table>
 				<tbody>
 					{history!.map(course => (
 						<ViewedClass
