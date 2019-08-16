@@ -6,10 +6,12 @@ import Professors from './professors';
 import Graph from './graph';
 import { Header, HeaderGradient, Container } from './styles/Layout';
 import { PageTitle } from './styles/Type';
+import GlobalStyle from './styles/Global';
 // import * as serviceWorker from './serviceWorker';
 
 const Main: React.FC = () => (
 	<BrowserRouter>
+		<GlobalStyle />
 		<Header>
 			<HeaderGradient>
 				<PageTitle>UCI Prereqs</PageTitle>
