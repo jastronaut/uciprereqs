@@ -6,12 +6,24 @@ import Next from '../Next';
 import { Heading, Text } from '../../../styles/Type';
 import { Badge } from '../../../styles/Specials';
 import { Title } from './styles';
+import Tags from '../Tags';
 import { CourseInfo as InfoType } from '../../../constants/Interfaces';
 
 interface Props {
 	dept: string;
 	num: string;
 }
+
+const tags = {
+	'hi': {
+		checked: false,
+		color: '#fff'
+	},
+	'hello': {
+		checked: true,
+		color: 'red'
+	}
+};
 
 const CourseInfo: React.FC<Props> = (props: Props) => {
 	const { dept, num } = props;
@@ -23,6 +35,10 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
 			.then(body => setCourseInfo(body));
 	}, [dept, num]);
 
+	const onClickTag = (tagName: string) => {
+		console.log(`${tagName} clicked`);
+	}
+
 	return (
 		<section>
 			{info ? (
@@ -31,6 +47,10 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
 						<Badge>{dept + ' ' + num}</Badge>
 						<Title>{info.title}</Title>
 					</Heading>
+					<Tags
+						tags={tags}
+						onClick={onClickTag}
+					/>
 					<Text>
 						{info.desc ? info.desc : 'No description found! 😰'}
 					</Text>
