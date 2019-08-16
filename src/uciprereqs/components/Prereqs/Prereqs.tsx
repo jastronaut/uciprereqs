@@ -13,8 +13,8 @@ const renderPrereq = (prereq: string) => (
 );
 
 const renderPrereqGroup = (prereqGroup: { [title: string]: string }) => {
-	const groupList: Array<JSX.Element> = [];
-	for (let [course, info] of Object.entries(prereqGroup)) {
+	const groupList: JSX.Element[] = [];
+	for (const [course, info] of Object.entries(prereqGroup)) {
 		groupList.push(renderPrereq(course + ' ' + info));
 	}
 	return groupList;
@@ -33,7 +33,12 @@ const Prereqs: React.FC<Props> = (props: Props) => {
 		<div>
 			<SectionHeader>Prerequisites</SectionHeader>
 			{prereqs.length < 1 ? (
-				<Text indented>No Prerequisites for this class! ✨</Text>
+				<Text indented>
+					No Prerequisites for this class!{' '}
+					<span role="img" aria-label="sparkle">
+						✨
+					</span>
+				</Text>
 			) : (
 				<table>
 					<tbody>{renderPrereqs(prereqs)}</tbody>
