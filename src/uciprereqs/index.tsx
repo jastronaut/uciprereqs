@@ -7,6 +7,7 @@ import CourseInfo from './components/CourseInfo';
 import History from './components/History';
 import addCourseHistory from './helpers/HistoryList';
 import { GridContainer, SideBar, MainContent } from '../styles/Grid';
+import { SiteHeader, Container } from '../styles/Layout';
 
 const usePrevious = (dept: string) => {
 	const ref = useRef<string>();
@@ -94,35 +95,43 @@ const App: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 	};
 
 	return (
-		<GridContainer>
-			<SideBar>
-				<DeptList onSelect={onSelectDept} selectedDept={dept} />
-				<br />
-				{displayCourseList()}
-				<History history={histList} clickHistory={onClickHistory} />
-			</SideBar>
-			<MainContent>
-				<Switch>
-					<Route
-						path="prereqs/:dept/:num"
-						render={({ match }) => (
-							<CourseInfo
-								dept={match.params.dept}
-								num={match.params.num}
+		<>
+			<SiteHeader />
+			<Container>
+				<GridContainer>
+					<SideBar>
+						<DeptList onSelect={onSelectDept} selectedDept={dept} />
+						<br />
+						{displayCourseList()}
+						<History
+							history={histList}
+							clickHistory={onClickHistory}
+						/>
+					</SideBar>
+					<MainContent>
+						<Switch>
+							<Route
+								path="prereqs/:dept/:num"
+								render={({ match }) => (
+									<CourseInfo
+										dept={match.params.dept}
+										num={match.params.num}
+									/>
+								)}
 							/>
-						)}
-					/>
-					<Route
-						path="/prereqs"
-						render={() =>
-							course !== '' ? (
-								<CourseInfo dept={dept} num={course} />
-							) : null
-						}
-					/>
-				</Switch>
-			</MainContent>
-		</GridContainer>
+							<Route
+								path="/prereqs"
+								render={() =>
+									course !== '' ? (
+										<CourseInfo dept={dept} num={course} />
+									) : null
+								}
+							/>
+						</Switch>
+					</MainContent>
+				</GridContainer>
+			</Container>
+		</>
 	);
 };
 
