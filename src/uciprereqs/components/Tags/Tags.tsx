@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TagData } from '../../../constants/Interfaces';
+import AddTagModal from './AddTagModal';
+import { Blue } from '../../../styles/Colors';
 
 interface TagDataClickable extends TagData {
 	onClick: () => void;
@@ -25,16 +27,38 @@ const TagBadge: React.FC<TagDataClickable> = (props: TagDataClickable) => (
 );
 
 interface Props {
-	tags: {
-		// eslint-disable-next-line @typescript-eslint/member-delimiter-style
-		[tagName: string]: TagData;
-	};
+	// tags: {
+	// 	// eslint-disable-next-line @typescript-eslint/member-delimiter-style
+	// 	[tagName: string]: TagData;
+	// };
 
-	onClick: (tagName: string) => void;
+	// onClick: (tagName: string) => void;
 }
 
 const Tags: React.FC<Props> = (props: Props) => {
-	const { tags, onClick } = props;
+	// const { tags, onClick } = props;
+	// const { onClick } = props;
+	const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
+
+	const [tags, setTags] = useState<{ [tagName: string]: TagData }>({
+		poop: {
+			checked: true,
+			color: Blue,
+		},
+		hi: {
+			checked: false,
+			color: Blue,
+		},
+		hello: {
+			checked: true,
+			color: Blue,
+		},
+	});
+
+
+	const onClick = (tagName: string) => {
+		console.log(`${tagName} clicked`);
+	}
 
 	return (
 		<>
@@ -44,17 +68,23 @@ const Tags: React.FC<Props> = (props: Props) => {
 						key={t}
 						tagName={t}
 						color={tags[t].color}
+						checked={tags[t].checked}
 						onClick={() => onClick(t)}
 					/>
 				) : null
 			)}
 
 			<TagBadge
-				key='newTag'
-				color='#aaa'
-				onClick={() => console.log('add new tag!!')}
-				tagName='New Tag'
+				checked={false}
+				key="newTag"
+				color="#aaa"
+				onClick={() => {
+					setIsModalShowing(modal => !modal);
+				}}
+				tagName="New Tag"
 			/>
+
+				<AddTagModal isModalShowing={isModalShowing} tags={tags} onToggleTag={() => console.log('x')} />
 		</>
 	);
 };

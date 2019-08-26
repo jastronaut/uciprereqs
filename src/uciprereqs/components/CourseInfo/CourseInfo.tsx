@@ -14,16 +14,20 @@ interface Props {
 	num: string;
 }
 
-const tags = {
-	hi: {
-		checked: false,
-		color: '#fff',
-	},
-	hello: {
-		checked: true,
-		color: 'red',
-	},
-};
+// const tags = {
+// 	'poop': {
+// 		checked: true,
+// 		color: Blue
+// 	},
+// 	'hi': {
+// 		checked: false,
+// 		color: Blue
+// 	},
+// 	'hello': {
+// 		checked: true,
+// 		color: Blue
+// 	}
+// };
 
 const CourseInfo: React.FC<Props> = (props: Props) => {
 	const { dept, num } = props;
@@ -35,9 +39,6 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
 			.then(body => setCourseInfo(body));
 	}, [dept, num]);
 
-	const onClickTag = (tagName: string) => {
-		console.log(`${tagName} clicked`);
-	};
 
 	return (
 		<section>
@@ -47,7 +48,10 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
 						<Badge>{dept + ' ' + num}</Badge>
 						<Title>{info.title}</Title>
 					</Heading>
-					<Tags tags={tags} onClick={onClickTag} />
+					<Tags
+						// tags={tags}
+						// onClick={onClickTag}
+					/>
 					<Text>
 						{info.desc ? info.desc : 'No description found! 😰'}
 					</Text>

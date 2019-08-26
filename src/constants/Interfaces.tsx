@@ -8,7 +8,7 @@ export interface CourseInfo {
 }
 
 export interface TagData {
-	checked?: boolean;
+	checked: boolean;
 	color: string;
 }
 
