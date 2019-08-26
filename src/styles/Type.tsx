@@ -3,6 +3,7 @@ import { UCIGold } from './Colors';
 
 interface TypeProps {
 	color?: string;
+	centered?: boolean;
 }
 
 export const PageTitle = styled.h1`
@@ -16,6 +17,7 @@ export const Heading = styled.h1<TypeProps>`
 	font-size: 2rem;
 	margin-bottom: 1.5rem;
 	line-height: 3rem;
+	text-align: ${props => (props.centered ? 'center' : 'left')};
 
 	> * {
 		display: inline;
