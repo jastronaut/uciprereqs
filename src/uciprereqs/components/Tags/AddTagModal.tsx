@@ -7,8 +7,8 @@ interface Props {
 	tags: {
 		[tagName: string]: TagData;
 	};
-    onToggleTag: () => void;
-    isModalShowing: boolean;
+	onToggleTag: () => void;
+	isModalShowing: boolean;
 }
 
 const TagListItemStyled = styled.div`
@@ -26,16 +26,14 @@ const TagListItem: React.FC<TagListItemProps> = (props: TagListItemProps) => (
 		<input
 			onChange={props.onChange}
 			value={props.checked ? 'true' : ''}
-			type="checkbox"
+			type='checkbox'
 		/>
 		{props.tagName}
 	</TagListItemStyled>
 );
 
 const AddTagModal: React.FC<Props> = (props: Props) => (
-	<Modal
-        isShowing={props.isModalShowing}
-    >
+	<Modal isShowing={props.isModalShowing}>
 		{Object.keys(props.tags).map(tag => (
 			<TagListItem
 				key={tag}
