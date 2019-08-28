@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Select = styled.select`
 	-webkit-appearance: none;
-	-moz-appearance: none;
 	font-size: 1rem;
 	padding: 0.5rem 1rem;
 	width: 50%;
@@ -18,3 +17,6 @@ export const Label = styled.label`
 `;
 
 export const InputArea = styled.div``;
+
+export const TextInput = styled.input`
+`;

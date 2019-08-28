@@ -31,7 +31,6 @@ interface Props {
 	// 	// eslint-disable-next-line @typescript-eslint/member-delimiter-style
 	// 	[tagName: string]: TagData;
 	// };
-
 	// onClick: (tagName: string) => void;
 }
 
@@ -45,20 +44,47 @@ const Tags: React.FC<Props> = (props: Props) => {
 			checked: true,
 			color: Blue,
 		},
+		hi2: {
+			checked: false,
+			color: Blue,
+		},
+		hello2: {
+			checked: true,
+			color: Blue,
+		},
 		hi: {
 			checked: false,
+			color: Blue,
+		},
+		hello5: {
+			checked: true,
+			color: Blue,
+		},
+		hello4: {
+			checked: true,
+			color: Blue,
+		},
+		hello3: {
+			checked: true,
 			color: Blue,
 		},
 		hello: {
 			checked: true,
 			color: Blue,
 		},
+		hello6: {
+			checked: true,
+			color: Blue,
+		},
+		hello7: {
+			checked: true,
+			color: Blue,
+		},
 	});
-
 
 	const onClick = (tagName: string) => {
 		console.log(`${tagName} clicked`);
-	}
+	};
 
 	return (
 		<>
@@ -76,12 +102,18 @@ const Tags: React.FC<Props> = (props: Props) => {
 
 			<TagBadge
 				checked={false}
-				key="newTag"
-				color="#aaa"
+				key='newTag'
+				color='#aaa'
 				onClick={() => {
 					setIsModalShowing(modal => !modal);
 				}}
-				tagName="New Tag"
+				tagName='New Tag'
+			/>
+
+			<AddTagModal
+				isModalShowing={isModalShowing}
+				tags={tags}
+				onToggleTag={() => console.log('x')}
 			/>
 
 				<AddTagModal isModalShowing={isModalShowing} tags={tags} onToggleTag={() => console.log('x')} />

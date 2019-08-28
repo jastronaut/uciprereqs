@@ -31,8 +31,8 @@ const ProfInfo: React.FC<Props> = (props: Props) => {
 				</>
 			) : (
 				<img
-					alt="Loading..."
-					src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=790b76115d22808b5a64535445306a6d&rid=giphy.gif"
+					alt='Loading...'
+					src='https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=790b76115d22808b5a64535445306a6d&rid=giphy.gif'
 				/>
 			)}
 		</section>

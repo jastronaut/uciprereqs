@@ -19,9 +19,9 @@ const Main: React.FC = () => (
 		</Header>
 		<Container>
 			<Switch>
-				<Route path="/prereqs" component={UCIPrereqs} />
-				<Route path="/professor" component={Professors} />
-				<Route path="/testgraph" component={Graph} />
+				<Route path='/prereqs' component={UCIPrereqs} />
+				<Route path='/professor' component={Professors} />
+				<Route path='/testgraph' component={Graph} />
 			</Switch>
 		</Container>
 	</BrowserRouter>

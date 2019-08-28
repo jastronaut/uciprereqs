@@ -17,19 +17,22 @@ const Container = styled.div`
 `;
 
 const Message = styled.div`
+	height: 20rem;
 	background: white;
 	border-radius: 5px;
-	height: 30%;
-	width: 20%;
+	width: 20rem;
     padding: 2rem 1.5rem;
+	display: flex;
+	flex-direction: column;
 `;
 
 interface Props {
 	isShowing?: boolean;
+	scroll?: boolean;
 	children: any;
 }
 
-const Modal: React.FC<Props> = ({ isShowing, children }: Props) => {
+const Modal: React.FC<Props> = ({ isShowing, children}: Props) => {
 	return (
 		<Container>
 			<Message>{children}</Message>

@@ -20,10 +20,10 @@ const CourseList: React.FC<Props> = (props: Props) => {
 
 	return (
 		<InputArea>
-			<Label htmlFor="classlist">Select Class</Label>
+			<Label htmlFor='classlist'>Select Class</Label>
 			<br />
 			<Select onChange={e => onSelect(e)} value={selectedCourse}>
-				<option value="" disabled={true}>
+				<option value='' disabled={true}>
 					Course
 				</option>
 				{renderCourseList()}
