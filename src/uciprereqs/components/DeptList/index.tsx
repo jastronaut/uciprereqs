@@ -19,10 +19,10 @@ const DeptList: React.FC<Props> = (props: Props) => {
 
 	return (
 		<InputArea>
-			<Label htmlFor="selectDept">Select Department</Label>
+			<Label htmlFor='selectDept'>Select Department</Label>
 			<br />
 			<Select onChange={e => onSelect(e)} value={selectedDept}>
-				<option value="" disabled={true}>
+				<option value='' disabled={true}>
 					Departments
 				</option>
 				{depts}

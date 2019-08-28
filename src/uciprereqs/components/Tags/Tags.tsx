@@ -50,10 +50,10 @@ const Tags: React.FC<Props> = (props: Props) => {
 			)}
 
 			<TagBadge
-				key="newTag"
-				color="#aaa"
+				key='newTag'
+				color='#aaa'
 				onClick={() => console.log('add new tag!!')}
-				tagName="New Tag"
+				tagName='New Tag'
 			/>
 		</>
 	);

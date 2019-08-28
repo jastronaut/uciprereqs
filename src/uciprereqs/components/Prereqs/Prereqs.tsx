@@ -35,7 +35,7 @@ const Prereqs: React.FC<Props> = (props: Props) => {
 			{prereqs.length < 1 ? (
 				<Text indented>
 					No Prerequisites for this class!{' '}
-					<span role="img" aria-label="sparkle">
+					<span role='img' aria-label='sparkle'>
 						✨
 					</span>
 				</Text>

@@ -104,7 +104,7 @@ const App: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 			<MainContent>
 				<Switch>
 					<Route
-						path="prereqs/:dept/:num"
+						path='prereqs/:dept/:num'
 						render={({ match }) => (
 							<CourseInfo
 								dept={match.params.dept}
@@ -113,7 +113,7 @@ const App: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 						)}
 					/>
 					<Route
-						path="/prereqs"
+						path='/prereqs'
 						render={() =>
 							course !== '' ? (
 								<CourseInfo dept={dept} num={course} />

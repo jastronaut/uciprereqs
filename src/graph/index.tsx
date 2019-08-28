@@ -58,8 +58,8 @@ const Graph: React.FC<Props> = (props: Props) => {
 		<ForceGraph2D
 			graphData={graphData}
 			// dagMode="td"
-			dagMode="radialout"
-			nodeAutoColorBy="group"
+			dagMode='radialout'
+			nodeAutoColorBy='group'
 			dagLevelDistance={50}
 			linkColor={() => UCIGold}
 			linkWidth={(link: CanvasGraphLink) => (link === hoverLink ? 5 : 1)}

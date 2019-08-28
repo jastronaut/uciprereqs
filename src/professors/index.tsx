@@ -48,7 +48,7 @@ const ProfessorsApp: React.FC<RouteComponentProps> = (
 			<MainContent>
 				<Switch>
 					<Route
-						path="professor/:prof"
+						path='professor/:prof'
 						render={({ match }) => (
 							<ProfInfo
 								prof={decodeURIComponent(match.params.prof)}
@@ -56,7 +56,7 @@ const ProfessorsApp: React.FC<RouteComponentProps> = (
 						)}
 					/>
 					<Route
-						path="/professor"
+						path='/professor'
 						render={() =>
 							prof !== '' ? <ProfInfo prof={prof} /> : 'hhh'
 						}

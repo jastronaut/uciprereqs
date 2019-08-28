@@ -15,20 +15,20 @@ interface Props {
 }
 
 const tags = {
-	'hi': {
+	hi: {
 		checked: false,
-		color: '#fff'
+		color: '#fff',
 	},
-	'hello': {
+	hello: {
 		checked: true,
-		color: 'red'
-	}
+		color: 'red',
+	},
 };
 
 const CourseInfo: React.FC<Props> = (props: Props) => {
 	const { dept, num } = props;
 	const [info, setCourseInfo] = useState<InfoType | null>(null);
-	
+
 	useEffect(() => {
 		fetch(`http://127.0.0.1:8000/departments/${dept}/courses/${num}`)
 			.then(response => response.json())
@@ -37,7 +37,7 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
 
 	const onClickTag = (tagName: string) => {
 		console.log(`${tagName} clicked`);
-	}
+	};
 
 	return (
 		<section>
@@ -47,10 +47,7 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
 						<Badge>{dept + ' ' + num}</Badge>
 						<Title>{info.title}</Title>
 					</Heading>
-					<Tags
-						tags={tags}
-						onClick={onClickTag}
-					/>
+					<Tags tags={tags} onClick={onClickTag} />
 					<Text>
 						{info.desc ? info.desc : 'No description found! 😰'}
 					</Text>
@@ -61,8 +58,8 @@ const CourseInfo: React.FC<Props> = (props: Props) => {
 				</>
 			) : (
 				<img
-					alt="Loading..."
-					src="https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=790b76115d22808b5a64535445306a6d&rid=giphy.gif"
+					alt='Loading...'
+					src='https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=790b76115d22808b5a64535445306a6d&rid=giphy.gif'
 				/>
 			)}
 		</section>

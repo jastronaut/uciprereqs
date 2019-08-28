@@ -18,10 +18,10 @@ const ProfList: React.FC<Props> = (props: Props) => {
 
 	return (
 		<InputArea>
-			<Label htmlFor="selectProf">Select Professor</Label>
+			<Label htmlFor='selectProf'>Select Professor</Label>
 			<br />
 			<Select onChange={e => onSelect(e)} value={selectedProf}>
-				<option value="" disabled={true}>
+				<option value='' disabled={true}>
 					Professors
 				</option>
 				{profs}
