@@ -1,0 +1,42 @@
+{
+	"poop": {
+		"checked": true,
+		"color": "blue"
+	},
+	"hi2": {
+		"checked": false,
+		"color": "blue"
+	},
+	"hello2": {
+		"checked": true,
+		"color": "blue"
+	},
+	"hi": {
+		"checked": false,
+		"color": "blue"
+	},
+	"hello5": {
+		"checked": true,
+		"color": "blue"
+	},
+	"hello4": {
+		"checked": true,
+		"color": "blue"
+	},
+	"hello3": {
+		"checked": true,
+		"color": "blue"
+	},
+	"hello": {
+		"checked": true,
+		"color": "blue"
+	},
+	"hello6": {
+		"checked": true,
+		"color": "blue"
+	},
+	"hello7": {
+		"checked": true,
+		"color": "blue"
+	}
+}
