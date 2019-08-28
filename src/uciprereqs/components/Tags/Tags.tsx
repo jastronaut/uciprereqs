@@ -44,11 +44,39 @@ const Tags: React.FC<Props> = (props: Props) => {
 			checked: true,
 			color: Blue,
 		},
+		hi2: {
+			checked: false,
+			color: Blue,
+		},
+		hello2: {
+			checked: true,
+			color: Blue,
+		},
 		hi: {
 			checked: false,
 			color: Blue,
 		},
+		hello5: {
+			checked: true,
+			color: Blue,
+		},
+		hello4: {
+			checked: true,
+			color: Blue,
+		},
+		hello3: {
+			checked: true,
+			color: Blue,
+		},
 		hello: {
+			checked: true,
+			color: Blue,
+		},
+		hello6: {
+			checked: true,
+			color: Blue,
+		},
+		hello7: {
 			checked: true,
 			color: Blue,
 		},
