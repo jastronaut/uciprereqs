@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import bg from '../constants/img/bg.jpg';
+/* import bg from '../constants/img/bg.jpg'; */
 
 export const Header = styled.header`
 	height: 15%;
-	background-image: url(${bg});
 	background-attachment: fixed;
 `;
 

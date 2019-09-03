@@ -79,7 +79,7 @@ const App: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
 	const displayCourseList = () => {
 		if (dept !== '') {
-			if (DEPTS.includes(dept)) {
+			if (DEPTS.indexOf(dept) > -1) {
 				return (
 					<CourseList
 						classes={courseList}

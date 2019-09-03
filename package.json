@@ -1,58 +1,54 @@
 {
-	"name": "uciprereqs",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@types/jest": "24.0.15",
-		"@types/node": "12.0.10",
-		"@types/react": "16.8.22",
-		"@types/react-dom": "16.8.4",
-		"@types/react-router-dom": "^4.3.5",
-		"@types/styled-components": "^4.1.18",
-		"eslint-plugin-react-hooks": "^1.7.0",
-		"prop-types": "^15.7.2",
-		"react-force-graph": "^1.24.1",
-		"react-router": "^5.0.1",
-		"react-router-dom": "^5.0.1",
-		"react-scripts": "3.0.1",
-		"styled-components": "^4.3.2",
-		"typescript": "3.5.2"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": "react-app",
-		"plugins": [
-			"react-hooks"
-		],
-		"rules": {
-			"react-hooks/rules-of-hooks": "error"
-		}
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^1.12.0",
-		"@typescript-eslint/parser": "^1.12.0",
-		"eslint-config-prettier": "^6.0.0",
-		"eslint-plugin-prettier": "^3.1.0",
-		"eslint-plugin-react": "^7.14.3",
-		"prettier": "^1.18.2",
-		"react": "^16.9.0",
-		"react-dom": "^16.9.0"
-	}
+  "name": "uciprereqs",
+  "version": "1.0.0",
+  "description": "uciprereqs frontend",
+  "main": "src/index.tsx",
+  "repository": "https://github.com/jastronaut/uciprereqs.git",
+  "author": "Jas Delgado <jas@jasdelgado.com>",
+  "license": "MIT",
+  "scripts": {
+    "lol": "webpack-dev-server",
+    "webpack_build": "./node_modules/.bin/webpack",
+    "start": "yarn run webpack_build && node server.js",
+    "dev": "./node_modules/.bin/webpack --mode development ./src/index.tsx --output ../static/frontend/main.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^4.3.5",
+    "@types/styled-components": "^4.1.18",
+    "@typescript-eslint/eslint-plugin": "^2.1.0",
+    "@typescript-eslint/parser": "^2.1.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.18.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-hot-loader": "^4.12.12",
+    "source-map-loader": "^0.2.4",
+    "styled-components": "^4.3.2",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.6.2",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-middleware": "^3.7.1",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react-force-graph": "^1.24.1",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1"
+  }
 }
