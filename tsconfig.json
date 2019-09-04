@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"outDir": "./build/",
+		"outDir": "../static/frontend",
 		"sourceMap": true,
 		"noImplicitAny": true,
 		"module": "commonjs",

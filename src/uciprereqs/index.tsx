@@ -39,7 +39,7 @@ const App: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
 	const getCourseList = (theDept: string) => {
 		if (theDept !== prevDept && prevDept !== '') setCourse('');
-		fetch(`http://127.0.0.1:8000/departments/${theDept}`)
+		fetch(`http://localhost:8000/api/dept/${theDept}/`)
 			.then(response => {
 				if (response.ok) return response.json();
 				else throw new Error('bad department');

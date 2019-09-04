@@ -10,7 +10,7 @@
     "lol": "webpack-dev-server",
     "webpack_build": "./node_modules/.bin/webpack",
     "start": "yarn run webpack_build && node server.js",
-    "dev": "./node_modules/.bin/webpack --mode development ./src/index.tsx --output ../static/frontend/main.js"
+    "dev": "./node_modules/.bin/webpack --mode development ./src/index.tsx --output ../static/frontend/js/main.js"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

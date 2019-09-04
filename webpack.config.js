@@ -9,7 +9,8 @@ module.exports = {
         vendor: ['react', 'react-dom']
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        // path: path.resolve(__dirname, 'dist'),
+        path: '../static/frontend/',
         filename: 'js/[name].bundle.js',
         publicPath: '/'
     },
@@ -33,7 +34,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'index.html'
+            template: '../templates/frontend/index.html'
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
